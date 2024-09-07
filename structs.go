@@ -19,3 +19,8 @@ type weapon struct {
 	Name  string `json:"displayName"`
 	Skins []skin `json:"skins"`
 }
+
+type jsonData struct {
+	Status int      `json:"status"`
+	Data   []weapon `json:"data"`
+}
