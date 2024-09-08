@@ -42,7 +42,7 @@ func main() {
 
 	err = json.Unmarshal(bytes, &response)
 	if err != nil {
-		fmt.Println("Error unmarshalling JSON:", err)
+		log.Fatalln(err)
 		return
 	}
 
