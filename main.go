@@ -6,7 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"strings"
+	"sort"
 )
 
 // Fetch the json from the weapons/skins api
@@ -23,41 +23,6 @@ func getJson() []byte {
 
 	//Convert the body to type string
 	return body
-}
-
-func printSkins(response jsonData, index int) {
-	// Print the weapon name
-	fmt.Printf("%v Skins:\n", response.Data[index].Name)
-
-	// Loop over the skins in the weapon struct
-	for i := 0; i < len(response.Data[index].Skins); {
-		// Print skin name
-		fmt.Printf("%v\n", response.Data[index].Skins[i].Name)
-		// If the chromas != 1, loop through each variant
-		if len(response.Data[index].Skins[i].Chromas) != 1 {
-			for o := 0; o != len(response.Data[index].Skins[i].Chromas); {
-				var variantName string
-
-				// Make sure battle pass skins or 5-Tier skins cant escape the
-				// removal of the skin title from the chroma names
-				if strings.Contains(response.Data[index].Skins[i].Chromas[o].Name, "Level 4") {
-					variantName = strings.ReplaceAll(response.Data[index].Skins[i].Chromas[o].Name, fmt.Sprintf("%v Level 4\n", response.Data[index].Skins[i].Name), "")
-				} else if strings.Contains(response.Data[index].Skins[i].Chromas[o].Name, "Level 5") {
-					variantName = strings.ReplaceAll(response.Data[index].Skins[i].Chromas[o].Name, fmt.Sprintf("%v Level 5\n", response.Data[index].Skins[i].Name), "")
-				} else {
-					variantName = strings.ReplaceAll(response.Data[index].Skins[i].Chromas[o].Name, fmt.Sprintf("%v\n", response.Data[index].Skins[i].Name), "")
-				}
-
-				if strings.ToLower(response.Data[index].Skins[i].Chromas[o].Name) == strings.ToLower(response.Data[index].Skins[i].Name) {
-					fmt.Printf("  ╰─(Variant 0 Default): %v\n", response.Data[index].Skins[i].Chromas[o].Swatch)
-				} else {
-					fmt.Printf("  ╰─%v: %v\n", variantName, response.Data[index].Skins[i].Chromas[o].Swatch)
-				}
-				o += 1
-			}
-		}
-		i += 1
-	}
 }
 
 func main() {
@@ -81,9 +46,40 @@ func main() {
 		return
 	}
 
-	for i := 0; i < 19; {
-		printSkins(response, i)
-		i += 1
+	jsonString := "{\"Data\":{"
+	fmt.Println(generateJson(jsonString, response))
+}
+
+func generateJson(jsonOut string, response jsonData) string {
+	for i := 0; i != len(response.Data); i++ {
+		jsonOut += fmt.Sprintf("\"%v\": [", response.Data[i].Name)
+		for o := 0; o != len(response.Data[i].Skins); o++ {
+
+			// Sort the slice alphabetically
+			sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
+				return response.Data[i].Skins[ii].Name < response.Data[i].Skins[j].Name
+			})
+
+			var icon string
+			// Ensure a blank URL is never returned
+			if response.Data[i].Skins[o].Icon == "" {
+				icon = response.Data[i].Skins[o].Chromas[0].Icon
+			} else {
+				icon = response.Data[i].Skins[o].Icon
+			}
+
+			jsonOut += fmt.Sprintf("{\"Name\":\"%v\",\"URL\":\"%v\"}", response.Data[i].Skins[o].Name, icon)
+			if o != len(response.Data[i].Skins)-1 {
+				jsonOut += ","
+			}
+		}
+
+		jsonOut += fmt.Sprintf("]")
+		if i != len(response.Data)-1 {
+			jsonOut += ","
+		}
 	}
 
+	jsonOut += "}}"
+	return jsonOut
 }

@@ -51,7 +51,7 @@ func (s *skin) UnmarshalJSON(data []byte) error {
 	aux := &struct {
 		UUID    string   `json:"uuid"`
 		Name    string   `json:"displayName"`
-		Icon    string   `json:"displayIcon"`
+		Icon    string   `json:"fullRender"`
 		Chromas []chroma `json:"chromas"`
 	}{}
 

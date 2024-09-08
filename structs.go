@@ -3,6 +3,7 @@ package main
 // Chromas struct
 type chroma struct {
 	Swatch string `json:"swatch"`
+	Icon   string `json:"fullRender"`
 	Name   string `json:"displayName"`
 }
 
@@ -10,7 +11,7 @@ type chroma struct {
 type skin struct {
 	UUID    string   `json:"uuid"`
 	Name    string   `json:"displayName"`
-	Icon    string   `json:"displayIcon"`
+	Icon    string   `json:"fullRender"`
 	Chromas []chroma `json:"chromas"`
 }
 
