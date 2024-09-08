@@ -62,7 +62,20 @@ func printSkins(response jsonData, index int) {
 
 func main() {
 	var response jsonData
-	err := json.Unmarshal(getJson(), &response)
+	bytes, err := readCache()
+
+	// If the file is too old, request new data from the API
+	if err != nil {
+		if err.Error() == "cached file unusable: older than 48h" {
+			fmt.Println("Cache file unusable. Requesting new file from https://valorant-api.com/v1/weapons")
+			bytes = getJson()
+			writeCache(bytes)
+		} else {
+			log.Fatalln(err)
+		}
+	}
+
+	err = json.Unmarshal(bytes, &response)
 	if err != nil {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return
