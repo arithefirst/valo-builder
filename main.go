@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -46,40 +47,45 @@ func main() {
 		return
 	}
 
-	jsonString := "{\"Data\":{"
-	fmt.Println(generateJson(jsonString, response))
+	var jsonString string
+	data, err := generateJson(4, jsonString, response)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println(data)
+
 }
 
-func generateJson(jsonOut string, response jsonData) string {
-	for i := 0; i != len(response.Data); i++ {
-		jsonOut += fmt.Sprintf("\"%v\": [", response.Data[i].Name)
-		for o := 0; o != len(response.Data[i].Skins); o++ {
+func generateJson(i int, jsonOut string, response jsonData) (string, error) {
 
-			// Sort the slice alphabetically
-			sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
-				return response.Data[i].Skins[ii].Name < response.Data[i].Skins[j].Name
-			})
+	if i > 9 {
+		return "", errors.New("index must be =< 9")
+	}
 
-			var icon string
-			// Ensure a blank URL is never returned
-			if response.Data[i].Skins[o].Icon == "" {
-				icon = response.Data[i].Skins[o].Chromas[0].Icon
-			} else {
-				icon = response.Data[i].Skins[o].Icon
-			}
+	jsonOut += "{\"Data\": ["
+	for o := 0; o != len(response.Data[i].Skins); o++ {
 
-			jsonOut += fmt.Sprintf("{\"Name\":\"%v\",\"URL\":\"%v\"}", response.Data[i].Skins[o].Name, icon)
-			if o != len(response.Data[i].Skins)-1 {
-				jsonOut += ","
-			}
+		// Sort the slice alphabetically
+		sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
+			return response.Data[i].Skins[ii].Name < response.Data[i].Skins[j].Name
+		})
+
+		var icon string
+		// Ensure a blank URL is never returned
+		if response.Data[i].Skins[o].Icon == "" {
+			icon = response.Data[i].Skins[o].Chromas[0].Icon
+		} else {
+			icon = response.Data[i].Skins[o].Icon
 		}
 
-		jsonOut += fmt.Sprintf("]")
-		if i != len(response.Data)-1 {
+		jsonOut += fmt.Sprintf("{\"Name\":\"%v\",\"URL\":\"%v\"}", response.Data[i].Skins[o].Name, icon)
+		if o != len(response.Data[i].Skins)-1 {
 			jsonOut += ","
 		}
 	}
 
-	jsonOut += "}}"
-	return jsonOut
+	jsonOut += "]}"
+
+	return jsonOut, nil
 }
