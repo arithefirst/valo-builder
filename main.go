@@ -4,66 +4,82 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"net/http"
 	"sort"
+	"strings"
 )
 
 // Fetch the json from the weapons/skins api
 func getJson() []byte {
-	resp, err := http.Get("https://valorant-api.com/v1/weapons")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	//Convert the body to type string
-	return body
-}
-
-func main() {
-	var response jsonData
+	// Read the cache
 	bytes, err := readCache()
 
 	// If the file is too old, request new data from the API
 	if err != nil {
-		if err.Error() == "cached file unusable: older than 48h" {
+		if err.Error() == "cached file unusable: older than 48h" || strings.Contains(err.Error(), "no such file or directory") {
+			fmt.Println(err.Error())
 			fmt.Println("Cache file unusable. Requesting new file from https://valorant-api.com/v1/weapons")
-			bytes = getJson()
+
+			// Request new data from the API
+			resp, err := http.Get("https://valorant-api.com/v1/weapons")
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			body, err := io.ReadAll(resp.Body)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			bytes = body
+			// Cache and return the new data
 			writeCache(bytes)
+			return bytes
 		} else {
 			log.Fatalln(err)
 		}
 	}
 
-	err = json.Unmarshal(bytes, &response)
+	return bytes
+}
+
+func main() {
+	router := gin.Default()
+	router.GET("/api/v1/phantom", ginmain)
+	err := router.Run("127.0.0.1:8080")
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func ginmain(c *gin.Context) {
+	var response jsonData
+	bytes := getJson()
+
+	err := json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err)
 		return
 	}
 
-	var jsonString string
-	data, err := generateJson(4, jsonString, response)
+	data, err := generateJson(4, response)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	fmt.Println(data)
-
+	c.JSON(http.StatusOK, data)
 }
 
-func generateJson(i int, jsonOut string, response jsonData) (string, error) {
+func generateJson(i int, response jsonData) (skinResp, error) {
 
 	if i > 9 {
-		return "", errors.New("index must be =< 9")
+		return skinResp{}, errors.New("index must be =< 9")
 	}
 
-	jsonOut += "{\"Data\": ["
+	var resp []map[string]string
 	for o := 0; o != len(response.Data[i].Skins); o++ {
 
 		// Sort the slice alphabetically
@@ -79,13 +95,9 @@ func generateJson(i int, jsonOut string, response jsonData) (string, error) {
 			icon = response.Data[i].Skins[o].Icon
 		}
 
-		jsonOut += fmt.Sprintf("{\"Name\":\"%v\",\"URL\":\"%v\"}", response.Data[i].Skins[o].Name, icon)
-		if o != len(response.Data[i].Skins)-1 {
-			jsonOut += ","
-		}
+		resp = append(resp, map[string]string{response.Data[i].Skins[o].Name: icon})
+
 	}
 
-	jsonOut += "]}"
-
-	return jsonOut, nil
+	return skinResp{resp}, nil
 }

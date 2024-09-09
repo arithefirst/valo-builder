@@ -25,3 +25,7 @@ type jsonData struct {
 	Status int      `json:"status"`
 	Data   []weapon `json:"data"`
 }
+
+type skinResp struct {
+	Data []map[string]string
+}
