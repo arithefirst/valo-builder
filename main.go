@@ -12,7 +12,55 @@ import (
 	"strings"
 )
 
-// Fetch the json from the weapons/skins api
+func main() {
+	// Set the port for the server to run on
+	var port uint16 = 8080
+
+	// Comment out the below to enable debug mode
+	gin.SetMode(gin.ReleaseMode)
+
+	router := gin.Default()
+
+	// Rifles
+	router.GET("/api/v1/vandal", handleVandal)
+	router.GET("/api/v1/bulldog", handleBulldog)
+	router.GET("/api/v1/phantom", handlePhantom)
+	router.GET("/api/v1/guardian", handleGuardian)
+
+	// LMGs
+	router.GET("/api/v1/odin", handleOdin)
+	router.GET("/api/v1/ares", handleAres)
+
+	// SMGs
+	router.GET("/api/v1/spectre", handleSpectre)
+	router.GET("/api/v1/stinger", handleStinger)
+
+	// Shotguns
+	router.GET("/api/v1/judge", handleJudge)
+	router.GET("/api/v1/bucky", handleBucky)
+
+	// Sidearms
+	router.GET("/api/v1/frenzy", handleFrenzy)
+	router.GET("/api/v1/ghost", handleGhost)
+	router.GET("/api/v1/sheriff", handleSheriff)
+	router.GET("/api/v1/classic", handleClassic)
+	router.GET("/api/v1/shorty", handleShorty)
+
+	// Snipers
+	router.GET("/api/v1/operator", handleOP)
+	router.GET("/api/v1/outlaw", handleOutlaw)
+	router.GET("/api/v1/marshall", handleMarshall)
+
+	// Knife
+	router.GET("/api/v1/melee", handleMelee)
+
+	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
+	err := router.Run(fmt.Sprintf("0.0.0.0:%d", port))
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
 func getJson() []byte {
 	// Read the cache
 	bytes, err := readCache()
@@ -46,36 +94,27 @@ func getJson() []byte {
 	return bytes
 }
 
-func main() {
-	router := gin.Default()
-	router.GET("/api/v1/phantom", ginmain)
-	err := router.Run("127.0.0.1:8080")
-	if err != nil {
-		log.Fatalln(err)
-	}
-}
-
-func ginmain(c *gin.Context) {
+func ginMain(index int) skinResp {
 	var response jsonData
 	bytes := getJson()
 
 	err := json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err)
-		return
+		return skinResp{}
 	}
 
-	data, err := generateJson(4, response)
+	data, err := generateJson(index, response)
 	if err != nil {
-		log.Fatalln(err)
+		panic(err)
 	}
 
-	c.JSON(http.StatusOK, data)
+	return data
 }
 
 func generateJson(i int, response jsonData) (skinResp, error) {
 
-	if i > 9 {
+	if i > 18 {
 		return skinResp{}, errors.New("index must be =< 9")
 	}
 
