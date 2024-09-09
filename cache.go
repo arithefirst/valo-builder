@@ -19,14 +19,14 @@ func writeCache(data []byte) {
 		if strings.Contains(err.Error(), "no such file or directory") {
 			fmt.Println("\"cache\" folder not found. Creating empty dir called \"cache\"")
 			cmd := exec.Command("mkdir", "cache")
-			err := cmd.Start()
+			err = cmd.Start()
 			if err != nil {
 				log.Fatal(err)
 				return
 			}
 
 			// Wait for mkdir to finish before re-trying
-			err = cmd.Wait()
+			err := cmd.Wait()
 			if err != nil {
 				log.Fatal(err)
 				return
@@ -42,6 +42,12 @@ func writeCache(data []byte) {
 func readCache() ([]byte, error) {
 	// Read the "cache" dir
 	files, err := os.ReadDir("cache")
+
+	// Prevent the program from killing itself if the cache dir is empty
+	if len(files) == 0 {
+		return nil, errors.New("open cache: no such file or directory")
+	}
+
 	if err != nil {
 		return []byte{}, err
 	}
