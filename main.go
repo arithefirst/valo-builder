@@ -115,7 +115,7 @@ func ginMain(index int) skinResp {
 func generateJson(i int, response jsonData) (skinResp, error) {
 
 	if i > 18 {
-		return skinResp{}, errors.New("index must be =< 9")
+		return skinResp{}, errors.New("index must be =< 18")
 	}
 
 	var resp []map[string]string
