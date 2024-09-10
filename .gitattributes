@@ -1,0 +1,4 @@
+# This file is just needed because for some reason github decided
+# to include every file in the language breakdown, including the go.sum and json files
+
+# Not sure why this happens, but adding an empty .gitattribute seems to fix it.
