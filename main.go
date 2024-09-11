@@ -22,37 +22,37 @@ func main() {
 	router := gin.Default()
 
 	// Rifles
-	router.GET("/api/v1/vandal", handleVandal)
-	router.GET("/api/v1/bulldog", handleBulldog)
-	router.GET("/api/v1/phantom", handlePhantom)
-	router.GET("/api/v1/guardian", handleGuardian)
+	router.GET("/api/v1/skin/vandal", handleVandal)
+	router.GET("/api/v1/skin/bulldog", handleBulldog)
+	router.GET("/api/v1/skin/phantom", handlePhantom)
+	router.GET("/api/v1/skin/guardian", handleGuardian)
 
 	// LMGs
-	router.GET("/api/v1/odin", handleOdin)
-	router.GET("/api/v1/ares", handleAres)
+	router.GET("/api/v1/skin/odin", handleOdin)
+	router.GET("/api/v1/skin/ares", handleAres)
 
 	// SMGs
-	router.GET("/api/v1/spectre", handleSpectre)
-	router.GET("/api/v1/stinger", handleStinger)
+	router.GET("/api/v1/skin/spectre", handleSpectre)
+	router.GET("/api/v1/skin/stinger", handleStinger)
 
 	// Shotguns
-	router.GET("/api/v1/judge", handleJudge)
-	router.GET("/api/v1/bucky", handleBucky)
+	router.GET("/api/v1/skin/judge", handleJudge)
+	router.GET("/api/v1/skin/bucky", handleBucky)
 
 	// Sidearms
-	router.GET("/api/v1/frenzy", handleFrenzy)
-	router.GET("/api/v1/ghost", handleGhost)
-	router.GET("/api/v1/sheriff", handleSheriff)
-	router.GET("/api/v1/classic", handleClassic)
-	router.GET("/api/v1/shorty", handleShorty)
+	router.GET("/api/v1/skin/frenzy", handleFrenzy)
+	router.GET("/api/v1/skin/ghost", handleGhost)
+	router.GET("/api/v1/skin/sheriff", handleSheriff)
+	router.GET("/api/v1/skin/classic", handleClassic)
+	router.GET("/api/v1/skin/shorty", handleShorty)
 
 	// Snipers
-	router.GET("/api/v1/operator", handleOP)
-	router.GET("/api/v1/outlaw", handleOutlaw)
-	router.GET("/api/v1/marshall", handleMarshall)
+	router.GET("/api/v1/skin/operator", handleOP)
+	router.GET("/api/v1/skin/outlaw", handleOutlaw)
+	router.GET("/api/v1/skin/marshall", handleMarshall)
 
 	// Knife
-	router.GET("/api/v1/melee", handleMelee)
+	router.GET("/api/v1/skin/melee", handleMelee)
 
 	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
 	err := router.Run(fmt.Sprintf("0.0.0.0:%d", port))
