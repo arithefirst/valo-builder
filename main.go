@@ -94,14 +94,14 @@ func getJson() []byte {
 	return bytes
 }
 
-func ginMain(index int) skinResp {
+func ginMain(index int) []skinResp {
 	var response jsonData
 	bytes := getJson()
 
 	err := json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err)
-		return skinResp{}
+		return []skinResp{}
 	}
 
 	data, err := generateJson(index, response)
@@ -112,13 +112,13 @@ func ginMain(index int) skinResp {
 	return data
 }
 
-func generateJson(i int, response jsonData) (skinResp, error) {
+func generateJson(i int, response jsonData) ([]skinResp, error) {
 
 	if i > 18 {
-		return skinResp{}, errors.New("index must be =< 18")
+		return []skinResp{}, errors.New("index must be =< 18")
 	}
 
-	var resp []map[string]string
+	var resp []skinResp
 	for o := 0; o != len(response.Data[i].Skins); o++ {
 
 		// Sort the slice alphabetically
@@ -134,9 +134,12 @@ func generateJson(i int, response jsonData) (skinResp, error) {
 			icon = response.Data[i].Skins[o].Icon
 		}
 
-		resp = append(resp, map[string]string{response.Data[i].Skins[o].Name: icon})
+		resp = append(resp, skinResp{
+			Name: response.Data[i].Skins[o].Name,
+			UUID: response.Data[i].Skins[o].UUID,
+			Icon: icon})
 
 	}
 
-	return skinResp{resp}, nil
+	return resp, nil
 }

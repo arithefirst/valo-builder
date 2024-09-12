@@ -27,5 +27,7 @@ type jsonData struct {
 }
 
 type skinResp struct {
-	Data []map[string]string
+	Name string `json:"displayName"`
+	Icon string `json:"fullRender"`
+	UUID string `json:"uuid"`
 }
