@@ -1,7 +1,6 @@
 <script>
     import Skin from './Skin.svelte'
     export let weapon;
-    let posts;
 
     async function fetchData() {
         const response = await fetch(`http://127.0.0.1:8080/api/v1/skin/${weapon}`);
@@ -9,9 +8,6 @@
         console.log(data);
         return data;
     }
-
-    console.log(posts);
-
 </script>
 
 <div class="outer">
