@@ -3,7 +3,7 @@
     export let title;
 </script>
 
-<div>
+<div class="skinCon">
     <p><strong>{title}</strong></p>
     <img {src} alt="{title}">
 </div>
@@ -19,10 +19,8 @@
         width: 250px;
         background-color: #1e1e2e;
         text-align: center;
-        margin: 10px 5px;
         font-size: 0.8rem;
         border-radius: 15px;
-        display: inline-grid;
     }
 
     img {

@@ -14,12 +14,20 @@
 
 </script>
 
-<main>
-    {#await fetchData() then data}
+
+{#await fetchData() then data}
+    <div id="outer">
         {#each data as skin}
-            <div>
                 <Skin src={skin.fullRender} title={skin.displayName}></Skin>
-            </div>
         {/each}
-    {/await}
-</main>
+    </div>
+{/await}
+
+<style>
+    #outer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 768px;
+    }
+</style>
