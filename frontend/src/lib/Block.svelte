@@ -14,20 +14,39 @@
 
 </script>
 
-
-{#await fetchData() then data}
-    <div id="outer">
-        {#each data as skin}
+<div class="outer">
+    <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
+    <hr>
+    <div class="grid">
+        {#await fetchData() then data}
+            {#each data as skin}
                 <Skin src={skin.fullRender} title={skin.displayName}></Skin>
-        {/each}
+            {/each}
+        {/await}
     </div>
-{/await}
+</div>
 
 <style>
-    #outer {
+    .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        width: 768px;
+        padding-left: 5px;
     }
+
+    .outer {
+        border-radius: 15px;
+        border: 3px solid #6c7086;
+        width: 818px;
+        text-align: center;
+        margin: 10px auto;
+
+    }
+
+    hr {
+        width: 90%;
+        height: 2px;
+        border-color: #6c7086;
+        background-color: #6c7086;
+    }
+
 </style>

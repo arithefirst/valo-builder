@@ -21,6 +21,8 @@
         text-align: center;
         font-size: 0.8rem;
         border-radius: 15px;
+        margin: 10px 5px;
+        cursor: pointer;
     }
 
     img {
