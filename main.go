@@ -118,27 +118,29 @@ func generateJson(i int, response jsonData) ([]skinResp, error) {
 		return []skinResp{}, errors.New("index must be =< 18")
 	}
 
+	// Sort the slice alphabetically
+	sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
+		return response.Data[i].Skins[ii].Name < response.Data[i].Skins[j].Name
+	})
+
 	var resp []skinResp
 	for o := 0; o != len(response.Data[i].Skins); o++ {
+		// Make sure the "Random Favorite Skin" does not appear in the response
+		if !strings.Contains(response.Data[i].Skins[o].Name, "Random") {
+			var icon string
+			// Ensure a blank URL is never returned
+			if response.Data[i].Skins[o].Icon == "" {
+				icon = response.Data[i].Skins[o].Chromas[0].Icon
+			} else {
+				icon = response.Data[i].Skins[o].Icon
+			}
 
-		// Sort the slice alphabetically
-		sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
-			return response.Data[i].Skins[ii].Name < response.Data[i].Skins[j].Name
-		})
+			resp = append(resp, skinResp{
+				Name: response.Data[i].Skins[o].Name,
+				UUID: response.Data[i].Skins[o].UUID,
+				Icon: icon})
 
-		var icon string
-		// Ensure a blank URL is never returned
-		if response.Data[i].Skins[o].Icon == "" {
-			icon = response.Data[i].Skins[o].Chromas[0].Icon
-		} else {
-			icon = response.Data[i].Skins[o].Icon
 		}
-
-		resp = append(resp, skinResp{
-			Name: response.Data[i].Skins[o].Name,
-			UUID: response.Data[i].Skins[o].UUID,
-			Icon: icon})
-
 	}
 
 	return resp, nil
