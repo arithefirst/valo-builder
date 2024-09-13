@@ -1,44 +1,41 @@
 <script>
   import Item from './lib/Item.svelte';
-
-  const defaults = new Map()
-  defaults.set("phantom", "")
-
+  import Block from "./lib/Block.svelte";
 </script>
 
-<div class="outer">
+<div class="weaponsGrid">
     <div class="sidearms">
-        <Item weapon="classic" url="blank"/>
-        <Item weapon="shorty" url="blank"/>
-        <Item weapon="frenzy" url="blank"/>
-        <Item weapon="ghost" url="blank"/>
-        <Item weapon="sheriff" url="blank"/>
+        <Item weapon="classic" href="" type="pistol"/>
+        <Item weapon="shorty" href="" type="pistol"/>
+        <Item weapon="frenzy" href="" type="pistol"/>
+        <Item weapon="ghost" href="" type="pistol"/>
+        <Item weapon="sheriff" href="" type="pistol"/>
     </div>
 
     <div class="smgs-shotguns">
-        <Item weapon="stinger" url="blank"/>
-        <Item weapon="spectre" url="blank"/>
+        <Item weapon="stinger" href="" type="smg"/>
+        <Item weapon="spectre" href="" type="smg"/>
         <p/>
-        <Item weapon="bucky" url="blank"/>
-        <Item weapon="judge" url="blank"/>
+        <Item weapon="bucky" href="" type="shotgun"/>
+        <Item weapon="judge" href="" type="shotgun"/>
     </div>
 
     <div class="rifles-melee">
-        <Item weapon="bulldog" url="blank"/>
-        <Item weapon="guardian" url="blank"/>
-        <Item weapon="phantom" url="blank"/>
-        <Item weapon="vandal" url="blank"/>
+        <Item weapon="bulldog" href="" type="rifle"/>
+        <Item weapon="guardian" href="" type="rifle"/>
+        <Item weapon="phantom" href="" type="rifle"/>
+        <Item weapon="vandal" href="" type="rifle"/>
         <p/>
-        <Item weapon="melee" url="blank"/>
+        <Item weapon="melee" href="" type="knife"/>
     </div>
 
     <div class="snipers-lmgs">
-        <Item weapon="marshal" url="blank"/>
-        <Item weapon="outlaw" url="blank"/>
-        <Item weapon="operator" url="blank"/>
+        <Item weapon="marshal" href="" type="sniper"/>
+        <Item weapon="outlaw" href="" type="sniper"/>
+        <Item weapon="operator" href="" type="sniper"/>
         <p/>
-        <Item weapon="ares" url="blank"/>
-        <Item weapon="odin" url="blank"/>
+        <Item weapon="ares" href="" type="lmg"/>
+        <Item weapon="odin" href="" type="lmg"/>
     </div>
 </div>
 <footer>RIOT GAMES, VALORANT and any associated logos are trademarks, service marks, and/or registered trademarks of <a href="https://riotgames.com">Riot Games, Inc.</a></footer>
@@ -58,7 +55,7 @@
         text-decoration: underline;
     }
 
-    .outer{display: flex;}
+    .weaponsGrid{display: flex;}
 
     .sidearms {
         margin-top: 2.75330396476vw;
