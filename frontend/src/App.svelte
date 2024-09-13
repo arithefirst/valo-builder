@@ -1,5 +1,4 @@
 <script>
-  import Block from './lib/Block.svelte';
   import Item from './lib/Item.svelte';
 
   const defaults = new Map()
@@ -62,19 +61,19 @@
     .outer{display: flex;}
 
     .sidearms {
-        margin-top: 50px;
-        margin-left: 80px;
-        width: 300px;
+        margin-top: 2.75330396476vw;
+        margin-left: 4.40528634361vw;
+        width: 16.519823788vw;
     }
 
     .smgs-shotguns, .rifles-melee, .snipers-lmgs{
-        margin-top: 50px;
-        margin-left: 40px;
-        width: 300px;
+        margin-top: 2.75330396476vw;
+        margin-left: 2.20264317181vw;
+        width: 16.519823788vw;
     }
 
     p {
-        margin-bottom: 68px
+        margin-bottom: 3.74449339207vw
     }
 
     :root {
