@@ -19,4 +19,9 @@
         color: inherit;
         text-decoration: underline;
     }
+
+    :root {
+        background-attachment: fixed;
+        background-image: url("./assets/bg_main.png");
+    }
 </style>
