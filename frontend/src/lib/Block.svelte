@@ -15,8 +15,9 @@
     <hr>
     <div class="grid">
         {#await fetchData() then data}
-            {#each data as skin}
-                <Skin src={skin.fullRender} title={skin.displayName}></Skin>
+            {#each data as skin, i}
+                <!-- Skin component requires i var for tabindex -->
+                <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName}></Skin>
             {/each}
         {/await}
     </div>

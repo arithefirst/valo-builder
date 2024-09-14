@@ -1,9 +1,54 @@
 <script>
     export let src;
     export let title;
+    export let weapon;
+    export let i;
+
+    // Import stores from stores.js
+    import { classic } from './stores.js'
+    import { shorty } from './stores.js'
+    import { frenzy } from './stores.js'
+    import { ghost } from './stores.js'
+    import { sheriff } from './stores.js'
+    import { stinger } from './stores.js'
+    import { spectre } from './stores.js'
+    import { bucky } from './stores.js'
+    import { judge } from './stores.js'
+    import { bulldog } from './stores.js'
+    import { guardian } from './stores.js'
+    import { phantom } from './stores.js'
+    import { vandal } from './stores.js'
+    import { marshal } from './stores.js'
+    import { operator } from './stores.js'
+    import { ares } from './stores.js'
+    import { odin } from './stores.js'
+    import { melee } from './stores.js'
+    import { outlaw } from './stores.js'
+
+    const weapons = {
+        "classic": classic, "shorty": shorty, "frenzy": frenzy,
+        "ghost": ghost, "sheriff": sheriff, "stinger": stinger,
+        "spectre": spectre, "bucky": bucky, "judge": judge,
+        "bulldog": bulldog, "guardian": guardian, "phantom": phantom,
+        "vandal": vandal, "marshal": marshal, "operator": operator,
+        "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
+    }
+
+
+    function load() {
+        // Lookup the currently set weapon in the weapons table;
+        // Then set that weapon's store's value to that of src
+        weapons[weapon].set(src);
+    }
 </script>
 
-<div class="skinCon">
+<div
+    class="skinCon"
+    on:click={load}
+    on:keyup={load}
+    role="button"
+    tabindex={i}
+>
     <p><strong>{title}</strong></p>
     <img {src} alt="{title}">
 </div>
