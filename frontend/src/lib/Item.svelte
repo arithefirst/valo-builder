@@ -2,7 +2,6 @@
     export let weapon
     export let href
     export let type
-    console.log(type)
 
     if (href === "") {
         const defaults = new Map()
@@ -27,8 +26,6 @@
         defaults.set('odin', "https://media.valorant-api.com/weaponskinchromas/2f93861d-4b2f-2175-af0c-3ba0c736e257/fullrender.png")
         href = defaults.get(weapon)
     }
-
-    console.log(`${weapon}: ${href}`)
 </script>
 
 <div id={weapon}>
