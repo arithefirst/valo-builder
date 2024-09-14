@@ -54,7 +54,7 @@
 <style>
     svg {
         margin-bottom: 0.82599118942vw;
-        font-family: cursive;
+        font-family: monospace;
         cursor: pointer;
     }
 </style>
