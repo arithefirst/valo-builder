@@ -10,7 +10,7 @@
     }
 </script>
 
-<div class="outer">
+<div class="skins-selector">
     <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
     <hr>
     <div class="grid">
@@ -30,12 +30,17 @@
         padding-left: 5px;
     }
 
-    .outer {
+    .skins-selector {
         border-radius: 15px;
         border: 3px solid #6c7086;
         width: 818px;
+        height: calc(100vh - 20px);
         text-align: center;
-        margin: 10px auto;
+        z-index: 1000;
+        position: absolute;
+        margin: 10px 50%;
+        translate: -50%;
+        overflow: scroll;
 
     }
 

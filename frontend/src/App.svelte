@@ -96,6 +96,7 @@
     }
 
     :root {
+        overflow: hidden;
         background-attachment: fixed;
         background-image: url("./assets/bg_main.png");
     }
