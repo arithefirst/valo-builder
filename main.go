@@ -98,6 +98,7 @@ func getJson() []byte {
 }
 
 func getChromas(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	uuid := c.Query("uuid")
 	if uuid == "" {
 		c.JSON(http.StatusNotFound, errResp{Error: "A UUID Must be specified.", Status: http.StatusNotFound})
