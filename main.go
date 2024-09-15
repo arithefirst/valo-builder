@@ -49,7 +49,7 @@ func main() {
 	// Snipers
 	router.GET("/api/v1/skin/operator", handleOP)
 	router.GET("/api/v1/skin/outlaw", handleOutlaw)
-	router.GET("/api/v1/skin/marshall", handleMarshall)
+	router.GET("/api/v1/skin/marshal", handleMarshal)
 
 	// Knife
 	router.GET("/api/v1/skin/melee", handleMelee)

@@ -98,7 +98,7 @@ func handleOutlaw(c *gin.Context) {
 	c.JSON(http.StatusOK, data)
 }
 
-func handleMarshall(c *gin.Context) {
+func handleMarshal(c *gin.Context) {
 	data := ginMain(15)
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, data)
