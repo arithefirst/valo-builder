@@ -1,4 +1,4 @@
-<script type="application/typescript">
+<script lang="ts">
   import Item from './lib/Item.svelte';
   import Block from "./lib/Block.svelte";
 
@@ -22,41 +22,49 @@
   import { odin } from './lib/stores.js'
   import { melee } from './lib/stores.js'
   import { outlaw } from './lib/stores.js'
+
+  // Func and vars for creating the <Block />
+  let visible = false;
+  let weapon: string;
+  function toggleVis(t: string) {
+      visible = !visible;
+      weapon = t
+  }
 </script>
 
 <div class="weaponsGrid">
     <div class="sidearms">
-        <Item weapon="classic" href={$classic} type="pistol"/>
-        <Item weapon="shorty" href={$shorty} type="pistol"/>
-        <Item weapon="frenzy" href={$frenzy} type="pistol"/>
-        <Item weapon="ghost" href={$ghost} type="pistol"/>
-        <Item weapon="sheriff" href={$sheriff} type="pistol"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("classic")}} on:click={() => {toggleVis("classic")}}><Item weapon="classic" href="{$classic}" type="pistol"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("shorty")}} on:click={() => {toggleVis("shorty")}}><Item weapon="shorty" href="{$shorty}" type="pistol"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("frenzy")}} on:click={() => {toggleVis("frenzy")}}><Item weapon="frenzy" href="{$frenzy}" type="pistol"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("ghost")}} on:click={() => {toggleVis("ghost")}}><Item weapon="ghost" href="{$ghost}" type="pistol"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("sheriff")}} on:click={() => {toggleVis("sheriff")}}><Item weapon="sheriff" href="{$shorty}" type="pistol"/></div>
     </div>
 
     <div class="smgs-shotguns">
-        <Item weapon="stinger" href={$stinger} type="smg"/>
-        <Item weapon="spectre" href={$spectre} type="smg"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("stinger")}} on:click={() => {toggleVis("stinger")}}><Item weapon="stinger" href="{$shorty}" type="smg"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("spectre")}} on:click={() => {toggleVis("spectre")}}><Item weapon="spectre" href="{$shorty}" type="smg"/></div>
         <p/>
-        <Item weapon="bucky" href={$bucky} type="shotgun"/>
-        <Item weapon="judge" href={$judge} type="shotgun"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("bucky")}} on:click={() => {toggleVis("bucky")}}><Item weapon="bucky" href="{$shorty}" type="shotgun"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("judge")}} on:click={() => {toggleVis("judge")}}><Item weapon="judge" href="{$shorty}" type="shotgun"/></div>
     </div>
 
     <div class="rifles-melee">
-        <Item weapon="bulldog" href={$bulldog} type="rifle"/>
-        <Item weapon="guardian" href={$guardian} type="rifle"/>
-        <Item weapon="phantom" href={$phantom} type="rifle"/>
-        <Item weapon="vandal" href={$vandal} type="rifle"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("bulldog")}} on:click={() => {toggleVis("bulldog")}}><Item weapon="bulldog" href={$bulldog} type="rifle"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("guardian")}} on:click={() => {toggleVis("guardian")}}><Item weapon="guardian" href={$guardian} type="rifle"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("phantom")}} on:click={() => {toggleVis("phantom")}}><Item weapon="phantom" href={$phantom} type="rifle"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("vandal")}} on:click={() => {toggleVis("vandal")}}><Item weapon="vandal" href={$vandal} type="rifle"/></div>
         <p/>
-        <Item weapon="melee" href={$melee} type="knife"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("melee")}} on:click={() => {toggleVis("melee")}}><Item weapon="melee" href={$melee} type="knife"/></div>
     </div>
 
     <div class="snipers-lmgs">
-        <Item weapon="marshal" href={$marshal} type="sniper"/>
-        <Item weapon="outlaw" href={$outlaw} type="sniper"/>
-        <Item weapon="operator" href={$operator} type="sniper"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("marshal")}} on:click={() => {toggleVis("marshal")}}><Item weapon="marshal" href={$marshal} type="sniper"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("outlaw")}} on:click={() => {toggleVis("outlaw")}}><Item weapon="outlaw" href={$outlaw} type="sniper"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("operator")}} on:click={() => {toggleVis("operator")}}><Item weapon="operator" href={$operator} type="sniper"/></div>
         <p/>
-        <Item weapon="ares" href={$ares} type="lmg"/>
-        <Item weapon="odin" href={$odin} type="lmg"/>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("ares")}} on:click={() => {toggleVis("ares")}}><Item weapon="ares" href={$ares} type="lmg"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("odin")}} on:click={() => {toggleVis("odin")}}><Item weapon="odin" href={$odin} type="lmg"/></div>
     </div>
 </div>
 
