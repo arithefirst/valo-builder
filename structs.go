@@ -31,3 +31,8 @@ type skinResp struct {
 	Icon string `json:"fullRender"`
 	UUID string `json:"uuid"`
 }
+
+type errResp struct {
+	Error  string `json:"error"`
+	Status int    `json:"status"`
+}
