@@ -2,6 +2,7 @@
     export let src;
     export let title;
     export let weapon;
+    export let uuid;
     export let i;
 
     // Import stores from stores.js
@@ -38,7 +39,7 @@
     function load() {
         // Lookup the currently set weapon in the weapons table;
         // Then set that weapon's store's value to that of src
-        weapons[weapon].set(src);
+        weapons[weapon].set( {src: src, uuid: uuid} )
     }
 </script>
 

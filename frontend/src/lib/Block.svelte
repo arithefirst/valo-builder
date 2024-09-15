@@ -34,7 +34,7 @@
             {#await fetchData() then data}
                 {#each data as skin, i}
                     <!-- Skin component requires i var for tabindex -->
-                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName}></Skin>
+                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid}></Skin>
                 {/each}
             {/await}
         </div>
