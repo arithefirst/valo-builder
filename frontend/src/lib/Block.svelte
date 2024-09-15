@@ -28,6 +28,7 @@
         47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" fill="#6c7086"/>
     </svg>
     <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
+    <img src=""/>
     <hr>
     <div class="scrollable">
         <div class="grid">

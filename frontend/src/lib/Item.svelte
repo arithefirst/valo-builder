@@ -4,25 +4,11 @@
     let href
 
     // Import stores from stores.js
-    import { classic } from './stores.js'
-    import { shorty } from './stores.js'
-    import { frenzy } from './stores.js'
-    import { ghost } from './stores.js'
-    import { sheriff } from './stores.js'
-    import { stinger } from './stores.js'
-    import { spectre } from './stores.js'
-    import { bucky } from './stores.js'
-    import { judge } from './stores.js'
-    import { bulldog } from './stores.js'
-    import { guardian } from './stores.js'
-    import { phantom } from './stores.js'
-    import { vandal } from './stores.js'
-    import { marshal } from './stores.js'
-    import { operator } from './stores.js'
-    import { ares } from './stores.js'
-    import { odin } from './stores.js'
-    import { melee } from './stores.js'
-    import { outlaw } from './stores.js'
+    import { classic, shorty, frenzy, ghost,
+             sheriff, stinger, spectre, bucky,
+             judge, bulldog, guardian, phantom,
+             vandal, marshal, outlaw, operator,
+             ares, odin, melee} from './stores.js'
 
     const weapons = {
         "classic": classic, "shorty": shorty, "frenzy": frenzy,
