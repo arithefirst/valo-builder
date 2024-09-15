@@ -27,10 +27,14 @@
   let visible = false;
   let weapon: string;
   function toggleVis(t: string) {
-      visible = !visible;
-      weapon = t
+          visible = !visible
+          weapon = t
   }
 </script>
+
+{#if visible}
+    <Block {weapon}/>
+{/if}
 
 <div class="weaponsGrid">
     <div class="sidearms">
@@ -38,15 +42,15 @@
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("shorty")}} on:click={() => {toggleVis("shorty")}}><Item weapon="shorty" href="{$shorty}" type="pistol"/></div>
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("frenzy")}} on:click={() => {toggleVis("frenzy")}}><Item weapon="frenzy" href="{$frenzy}" type="pistol"/></div>
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("ghost")}} on:click={() => {toggleVis("ghost")}}><Item weapon="ghost" href="{$ghost}" type="pistol"/></div>
-        <div role="button" tabindex=0 on:keypress={() => {toggleVis("sheriff")}} on:click={() => {toggleVis("sheriff")}}><Item weapon="sheriff" href="{$shorty}" type="pistol"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("sheriff")}} on:click={() => {toggleVis("sheriff")}}><Item weapon="sheriff" href="{$sheriff}" type="pistol"/></div>
     </div>
 
     <div class="smgs-shotguns">
-        <div role="button" tabindex=0 on:keypress={() => {toggleVis("stinger")}} on:click={() => {toggleVis("stinger")}}><Item weapon="stinger" href="{$shorty}" type="smg"/></div>
-        <div role="button" tabindex=0 on:keypress={() => {toggleVis("spectre")}} on:click={() => {toggleVis("spectre")}}><Item weapon="spectre" href="{$shorty}" type="smg"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("stinger")}} on:click={() => {toggleVis("stinger")}}><Item weapon="stinger" href="{$stinger}" type="smg"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("spectre")}} on:click={() => {toggleVis("spectre")}}><Item weapon="spectre" href="{$spectre}" type="smg"/></div>
         <p/>
-        <div role="button" tabindex=0 on:keypress={() => {toggleVis("bucky")}} on:click={() => {toggleVis("bucky")}}><Item weapon="bucky" href="{$shorty}" type="shotgun"/></div>
-        <div role="button" tabindex=0 on:keypress={() => {toggleVis("judge")}} on:click={() => {toggleVis("judge")}}><Item weapon="judge" href="{$shorty}" type="shotgun"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("bucky")}} on:click={() => {toggleVis("bucky")}}><Item weapon="bucky" href="{$bucky}" type="shotgun"/></div>
+        <div role="button" tabindex=0 on:keypress={() => {toggleVis("judge")}} on:click={() => {toggleVis("judge")}}><Item weapon="judge" href="{$judge}" type="shotgun"/></div>
     </div>
 
     <div class="rifles-melee">
