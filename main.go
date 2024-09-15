@@ -112,10 +112,12 @@ func getChromas(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	for _, v := range response.Data[2].Skins {
-		if v.UUID == uuid {
-			c.JSON(http.StatusOK, v)
-			return
+	for i := 0; i != len(response.Data); i++ {
+		for _, v := range response.Data[i].Skins {
+			if v.UUID == uuid {
+				c.JSON(http.StatusOK, v)
+				return
+			}
 		}
 	}
 
