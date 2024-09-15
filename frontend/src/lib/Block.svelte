@@ -1,11 +1,44 @@
-<script>
+<script lang="ts">
     import Skin from './Skin.svelte'
-    export let weapon;
-    export let visible;
+    export let weapon: string;
+    export let visible: boolean;
+
+    // Import stores from stores.js
+    import { classic, shorty, frenzy, ghost,
+        sheriff, stinger, spectre, bucky,
+        judge, bulldog, guardian, phantom,
+        vandal, marshal, outlaw, operator,
+        ares, odin, melee} from './stores.js'
+
+    const weapons = {
+        "classic": classic, "shorty": shorty, "frenzy": frenzy,
+        "ghost": ghost, "sheriff": sheriff, "stinger": stinger,
+        "spectre": spectre, "bucky": bucky, "judge": judge,
+        "bulldog": bulldog, "guardian": guardian, "phantom": phantom,
+        "vandal": vandal, "marshal": marshal, "operator": operator,
+        "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
+    }
+
+    let src: string
+    let uuid: string
+    weapons[weapon].subscribe((val) => {
+        src = val.src
+        uuid = val.uuid
+    })
 
     async function fetchData() {
         const response = await fetch(`http://127.0.0.1:8080/api/v1/skin/${weapon}`);
         return await response.json();
+    }
+
+    async function fetchChroma() {
+        const response = await fetch(`http://127.0.0.1:8080/api/v1/chromas?uuid=${uuid}`);
+        return await response.json();
+    }
+
+    let chromaResponse = fetchChroma();
+    function refetchChroma() {
+        chromaResponse = fetchChroma();
     }
 
     function toggleVis() {
@@ -28,14 +61,18 @@
         47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" fill="#6c7086"/>
     </svg>
     <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
-    <img src=""/>
+    <div class="levels-img-chroma">
+        {#await chromaResponse then chromaData}
+            <img src={chromaData.chromas[0].fullRender} alt={chromaData.chromas[0].displayName}/>
+        {/await}
+    </div>
     <hr>
     <div class="scrollable">
         <div class="grid">
             {#await fetchData() then data}
                 {#each data as skin, i}
                     <!-- Skin component requires i var for tabindex -->
-                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid}></Skin>
+                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} refreshFunc={refetchChroma}></Skin>
                 {/each}
             {/await}
         </div>
@@ -74,7 +111,7 @@
     }
 
     .scrollable {
-        height: calc(100% - 100px);
+        height: calc(100% - 250px);
         position: absolute;
         overflow-y: scroll;
     }
@@ -86,6 +123,14 @@
         width: 4%;
         cursor: pointer;
         overflow: hidden;
+    }
+
+    .levels-img-chroma {
+        height: 150px;
+    }
+
+    img {
+        height: 80%;
     }
 
     hr {

@@ -1,6 +1,7 @@
 <script>
     export let src;
     export let title;
+    export let refreshFunc;
     export let weapon;
     export let uuid;
     export let i;
@@ -26,6 +27,7 @@
         // Lookup the currently set weapon in the weapons table;
         // Then set that weapon's store's value to that of src
         weapons[weapon].set( {src: src, uuid: uuid} )
+        refreshFunc()
     }
 </script>
 
@@ -47,6 +49,10 @@
     }
 
     div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         border: 3px solid #6c7086;
         width: 250px;
         background-color: #1e1e2e;
