@@ -86,7 +86,7 @@
                         />
                 {/each}
             </div>
-            <img id="weapon" src={href}/>
+            <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
         {/await}
     </div>
     <hr>
