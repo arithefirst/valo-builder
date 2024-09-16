@@ -74,16 +74,27 @@
         {#await chromaResponse then chromaData}
             <div class="chromas">
                 {#each chromaData.chromas as chroma, i}
+                    <!-- svelte-ignore a11y-invalid-attribute permalink -->
+                    <a
+                        href="#"
+                        role="button"
+                        tabindex={i}
+                        on:click={() => {
+                            chromaIndex = i
+                            weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
+                        }}
+                        on:keypress={() => {
+                            chromaIndex = i
+                            weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
+                        }}
+                    >
                         <img
                             class="swatch"
                             id="swatch-{i}"
                             src={chroma.swatch}
                             alt={chroma.displayName}
-                            on:click={() => {
-                                chromaIndex = i
-                                weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
-                            }}
                         />
+                    </a>
                 {/each}
             </div>
             <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
@@ -122,8 +133,12 @@
 
     .swatch {
         cursor: pointer;
-        margin-right: 5px;
         border-radius: 3px;
+        height: 40px;
+        width: 40px;
+    }
+
+    a {
         height: 40px;
         width: 40px;
     }
