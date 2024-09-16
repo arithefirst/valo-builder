@@ -2,6 +2,7 @@
     import Skin from './Skin.svelte'
     export let weapon: string;
     export let visible: boolean;
+    let href
 
     // Import stores from stores.js
     import { classic, shorty, frenzy, ghost,
@@ -18,6 +19,13 @@
         "vandal": vandal, "marshal": marshal, "operator": operator,
         "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
     }
+
+    weapons[weapon].subscribe((val) => {
+        href = val.src
+    })
+
+    // Which chroma to use
+    let chromaIndex= 0
 
     let src: string
     let uuid: string
@@ -36,6 +44,7 @@
         return await response.json();
     }
 
+    // Function to re-fetch data when skin changes
     let chromaResponse = fetchChroma();
     function refetchChroma() {
         chromaResponse = fetchChroma();
@@ -63,7 +72,21 @@
     <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
     <div class="levels-img-chroma">
         {#await chromaResponse then chromaData}
-            <img src={chromaData.chromas[0].fullRender} alt={chromaData.chromas[0].displayName}/>
+            <div class="chromas">
+                {#each chromaData.chromas as chroma, i}
+                        <img
+                            class="swatch"
+                            id="swatch-{i}"
+                            src={chroma.swatch}
+                            alt={chroma.displayName}
+                            on:click={() => {
+                                chromaIndex = i
+                                weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
+                            }}
+                        />
+                {/each}
+            </div>
+            <img id="weapon" src={href}/>
         {/await}
     </div>
     <hr>
@@ -84,6 +107,25 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         padding-left: 5px;
+    }
+
+    .chromas {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        margin-top: 10px;
+        margin-left: 40px;
+        display: inline-block;
+        height: 40px;
+        width: 180px
+    }
+
+    .swatch {
+        cursor: pointer;
+        margin-right: 5px;
+        border-radius: 3px;
+        height: 40px;
+        width: 40px;
     }
 
     .blur {
@@ -111,7 +153,7 @@
     }
 
     .scrollable {
-        height: calc(100% - 250px);
+        height: calc(100% - 300px);
         position: absolute;
         overflow-y: scroll;
     }
@@ -126,10 +168,12 @@
     }
 
     .levels-img-chroma {
-        height: 150px;
+        position: relative;
+        height: 200px;
     }
 
-    img {
+    #weapon {
+        margin-top: 20px;
         height: 80%;
     }
 
