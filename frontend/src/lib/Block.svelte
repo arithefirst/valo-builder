@@ -174,7 +174,7 @@
 
     #weapon {
         margin-top: 20px;
-        height: 80%;
+        height: 65%;
     }
 
     hr {
