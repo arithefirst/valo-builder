@@ -5,7 +5,7 @@ echo "       │ [38;5;83m[1mStarting Tests...[0m"
 echo "───────┼────────────────────────────────────────"
 
 o=0
-for i in classic shorty frenzy ghost sheriff stinger spectre bucky judge bulldog guardian phantom vandal marshall operator ares odin melee outlaw;
+for i in classic shorty frenzy ghost sheriff stinger spectre bucky judge bulldog guardian phantom vandal marshal operator ares odin melee outlaw;
 do
    status_code=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8080/api/v1/skin/$i")
    if test $o -le 9; then
