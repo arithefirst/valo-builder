@@ -95,7 +95,7 @@
             {#await fetchData() then data}
                 {#each data as skin, i}
                     <!-- Skin component requires i var for tabindex -->
-                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} refreshFunc={refetchChroma}></Skin>
+                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
                 {/each}
             {/await}
         </div>

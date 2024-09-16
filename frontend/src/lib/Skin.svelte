@@ -1,6 +1,7 @@
 <script>
     export let src;
     export let title;
+    export let chromaIndex
     export let refreshFunc;
     export let weapon;
     export let uuid;
@@ -27,6 +28,7 @@
         // Lookup the currently set weapon in the weapons table;
         // Then set that weapon's store's value to that of src
         weapons[weapon].set( {src: src, uuid: uuid} )
+        chromaIndex = 0
         refreshFunc()
     }
 </script>
