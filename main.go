@@ -55,7 +55,7 @@ func main() {
 	router.GET("/api/v1/skin/melee", handleMelee)
 
 	// Endpoint for all chromas
-	router.GET("api/v1/chromas", getChromas)
+	router.GET("api/v1/chromas", handleChromas)
 
 	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
 	err := router.Run(fmt.Sprintf("0.0.0.0:%d", port))
@@ -95,34 +95,6 @@ func getJson() []byte {
 	}
 
 	return bytes
-}
-
-func getChromas(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "*")
-	uuid := c.Query("uuid")
-	if uuid == "" {
-		c.JSON(http.StatusNotFound, errResp{Error: "A UUID Must be specified.", Status: http.StatusNotFound})
-		return
-	}
-
-	var response jsonData
-	bytes := getJson()
-
-	err := json.Unmarshal(bytes, &response)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	for i := 0; i != len(response.Data); i++ {
-		for _, v := range response.Data[i].Skins {
-			if v.UUID == uuid {
-				c.JSON(http.StatusOK, v)
-				return
-			}
-		}
-	}
-
-	c.JSON(http.StatusNotFound, errResp{Error: "The requested UUID was not found.", Status: http.StatusNotFound})
 }
 
 func ginMain(index int) []skinResp {
