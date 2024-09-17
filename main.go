@@ -57,6 +57,9 @@ func main() {
 	// Endpoint for all chromas
 	router.GET("api/v1/chromas", handleChromas)
 
+	// Search endpoint
+	router.GET("/api/v1/search", search)
+
 	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
 	err := router.Run(fmt.Sprintf("0.0.0.0:%d", port))
 	if err != nil {
