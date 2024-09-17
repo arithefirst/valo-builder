@@ -2,7 +2,14 @@
     import Skin from './Skin.svelte'
     export let weapon: string;
     export let visible: boolean;
-    let href
+    let href: string
+
+    // Function to hide the swatches if there is only 1
+    function hideSwatch(json: object) {
+        if (Object.keys(json).length === 1) {
+            return "display: none;"
+        } else return ""
+    }
 
     // Import stores from stores.js
     import { classic, shorty, frenzy, ghost,
@@ -20,17 +27,12 @@
         "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
     }
 
-    weapons[weapon].subscribe((val) => {
-        href = val.src
-    })
-
     // Which chroma to use
     let chromaIndex= 0
 
-    let src: string
     let uuid: string
     weapons[weapon].subscribe((val) => {
-        src = val.src
+        href = val.src
         uuid = val.uuid
     })
 
@@ -76,23 +78,24 @@
                 {#each chromaData.chromas as chroma, i}
                     <!-- svelte-ignore a11y-invalid-attribute permalink -->
                     <a
-                        href="#"
-                        role="button"
-                        tabindex={i}
-                        on:click={() => {
+                            href="#"
+                            role="button"
+                            tabindex={i}
+                            on:click={() => {
                             chromaIndex = i
                             weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
                         }}
-                        on:keypress={() => {
+                            on:keypress={() => {
                             chromaIndex = i
                             weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
                         }}
                     >
                         <img
-                            class="swatch"
-                            id="swatch-{i}"
-                            src={chroma.swatch}
-                            alt={chroma.displayName}
+                                class="swatch"
+                                id="swatch-{i}"
+                                src={chroma.swatch}
+                                alt={chroma.displayName}
+                                style="{hideSwatch(chromaData.chromas)}"
                         />
                     </a>
                 {/each}
