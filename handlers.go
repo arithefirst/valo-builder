@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -9,11 +10,14 @@ import (
 func handleChromas(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
 	uuid := c.Query("uuid")
+
+	// If UUID empty return a 404
 	if uuid == "" {
 		c.JSON(http.StatusNotFound, errResp{Error: "A UUID Must be specified.", Status: http.StatusNotFound})
 		return
 	}
 
+	// Get the data from the cache/api
 	var response jsonData
 	bytes := getJson()
 
@@ -22,15 +26,19 @@ func handleChromas(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
+	// For each weapon
 	for i := 0; i != len(response.Data); i++ {
+		// For each weapon in each skin
 		for _, v := range response.Data[i].Skins {
 			if v.UUID == uuid {
+				// If UUID Matches return the skin and chromas
 				c.JSON(http.StatusOK, v)
 				return
 			}
 		}
 	}
 
+	// If UUID not found, return a 404
 	c.JSON(http.StatusNotFound, errResp{Error: "The requested UUID was not found.", Status: http.StatusNotFound})
 }
 
