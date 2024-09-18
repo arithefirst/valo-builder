@@ -100,7 +100,10 @@
                     </a>
                 {/each}
             </div>
-            <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
+            <div>
+                <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
+                <input>
+            </div>
         {/await}
     </div>
     <hr>
@@ -117,6 +120,13 @@
 </div>
 
 <style>
+    input {
+        transform: translate(-50%, 0);
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+    }
+
     .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -191,7 +201,10 @@
     }
 
     #weapon {
-        margin-top: 20px;
+        transform: translate(-50%, 0);
+        position: absolute;
+        top: 20px;
+        left: 50%;
         height: 65%;
     }
 
