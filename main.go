@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -99,11 +98,7 @@ func getJson() []byte {
 	return bytes
 }
 
-func generateJson(i int, response jsonData) ([]skinResp, error) {
-
-	if i > 18 {
-		return []skinResp{}, errors.New("index must be =< 18")
-	}
+func generateJson(i int, response jsonData) []skinResp {
 
 	// Sort the slice alphabetically
 	sort.Slice(response.Data[i].Skins, func(ii, j int) bool {
@@ -111,6 +106,7 @@ func generateJson(i int, response jsonData) ([]skinResp, error) {
 	})
 
 	var resp []skinResp
+	// Iterate over all the skins
 	for o := 0; o != len(response.Data[i].Skins); o++ {
 		// Make sure the "Random Favorite Skin" does not appear in the response
 		if !strings.Contains(response.Data[i].Skins[o].Name, "Random") {
@@ -122,6 +118,7 @@ func generateJson(i int, response jsonData) ([]skinResp, error) {
 				icon = response.Data[i].Skins[o].Icon
 			}
 
+			// Append each skin to the response
 			resp = append(resp, skinResp{
 				Name: response.Data[i].Skins[o].Name,
 				UUID: response.Data[i].Skins[o].UUID,
@@ -130,5 +127,5 @@ func generateJson(i int, response jsonData) ([]skinResp, error) {
 		}
 	}
 
-	return resp, nil
+	return resp
 }

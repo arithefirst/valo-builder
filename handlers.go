@@ -121,10 +121,7 @@ func handleSkins(c *gin.Context, i int) {
 		log.Fatalln(err.Error())
 	}
 
-	data, err := generateJson(i, response)
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
+	data := generateJson(i, response)
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, data)
