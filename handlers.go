@@ -65,14 +65,7 @@ func search(c *gin.Context) {
 		}
 	}
 
-	// If skins is not empty, return it
-	if len(skins) != 0 {
-		c.JSON(http.StatusOK, skins)
-		return
-	}
-
-	// If skins empty, respone with no skins found
-	c.JSON(http.StatusNotFound, errResp{Error: "The requested query was not found.", Status: http.StatusNotFound})
+	c.JSON(http.StatusOK, skins)
 }
 
 func handleChromas(c *gin.Context) {
