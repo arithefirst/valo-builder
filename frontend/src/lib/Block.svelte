@@ -2,7 +2,7 @@
     import Skin from './Skin.svelte'
     export let weapon: string;
     export let visible: boolean;
-    let href: string
+
 
     // Function to hide the swatches if there is only 1
     function hideSwatch(json: object) {
@@ -18,6 +18,7 @@
         vandal, marshal, outlaw, operator,
         ares, odin, melee} from './stores.js'
 
+    // Mapping of each weapon for each store
     const weapons = {
         "classic": classic, "shorty": shorty, "frenzy": frenzy,
         "ghost": ghost, "sheriff": sheriff, "stinger": stinger,
@@ -27,14 +28,41 @@
         "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
     }
 
-    // Which chroma to use
-    let chromaIndex= 0
+    // Mapping of each weapon to it's index
+    const indices = {
+        "odin":0, "ares":1, "vandal":2, "bulldog":3,
+        "phantom":4, "judge":5, "bucky":6, "frenzy":7,
+        "classic":8, "ghost":9, "sheriff":10, "shorty":11,
+        "operator":12, "guardian":13, "outlaw":14, "marshal":15,
+        "spectre":16, "stinger":17, "melee":18
+    }
 
+    // Which chroma to use
+    let chromaIndex = 0
+
+    // Subscribe to the store for the current weapon
+    let href: string
     let uuid: string
     weapons[weapon].subscribe((val) => {
         href = val.src
         uuid = val.uuid
     })
+
+
+    let resp = fetchData();
+    let query: string;
+
+    // Function for handling searches
+    async function search() {
+        if (query === "") {
+            // If the query is empty, give the default data instead
+            console.log("Search empty. Re-setting to default.")
+            resp = fetchData();
+        } else {
+            const response = await fetch(`http://127.0.0.1:8080/api/v1/search?q=${query}&weapon=${indices[weapon]}`)
+            resp = await response.json()
+        }
+    }
 
     async function fetchData() {
         const response = await fetch(`http://127.0.0.1:8080/api/v1/skin/${weapon}`);
@@ -102,18 +130,25 @@
             </div>
             <div>
                 <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
-                <input placeholder="Search..."/>
+                <input
+                    id="search"
+                    placeholder="Search..."
+                    bind:value={query}
+                    on:input={search}
+                />
             </div>
         {/await}
     </div>
     <hr>
     <div class="scrollable">
         <div class="grid">
-            {#await fetchData() then data}
-                {#each data as skin, i}
-                    <!-- Skin component requires i var for tabindex -->
-                    <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
-                {/each}
+            {#await resp then data}
+                {#if data !== null}
+                    {#each data as skin, i}
+                        <!-- Skin component requires i var for tabindex -->
+                        <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
+                    {/each}
+                {/if}
             {/await}
         </div>
     </div>
