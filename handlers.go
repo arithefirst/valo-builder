@@ -32,8 +32,8 @@ func search(c *gin.Context) {
 		return
 	}
 
-	// If weaponInt > 18, return an error
-	if weaponInt > 18 {
+	// If weaponInt > 18 or < 0, return an error
+	if weaponInt > 18 || weaponInt < 0 {
 		c.JSON(http.StatusNotFound, errResp{Error: "Weapon must be >= 0 && <= 18", Status: http.StatusNotFound})
 		return
 	}
@@ -48,19 +48,20 @@ func search(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
+	data := generateJson(weaponInt, response)
+
 	// Sort the slice alphabetically
-	sort.Slice(response.Data[weaponInt].Skins, func(ii, j int) bool {
-		return response.Data[weaponInt].Skins[ii].Name < response.Data[weaponInt].Skins[j].Name
+	sort.Slice(data, func(ii, j int) bool {
+		return data[ii].Name < data[j].Name
 	})
 
 	// Create skins arr
-	var skins []skin
-
+	var skins []skinResp
 	// For every skin in specified weapon
-	for i := 0; i != len(response.Data[weaponInt].Skins); i++ {
+	for i := 0; i != len(data); i++ {
 		// If lowercase weapon name contains lowercase query, add to skins arr
-		if strings.Contains(strings.ToLower(response.Data[weaponInt].Skins[i].Name), strings.ToLower(query)) {
-			skins = append(skins, response.Data[weaponInt].Skins[i])
+		if strings.Contains(strings.ToLower(data[i].Name), strings.ToLower(query)) {
+			skins = append(skins, data[i])
 		}
 	}
 
