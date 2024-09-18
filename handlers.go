@@ -42,6 +42,7 @@ func search(c *gin.Context) {
 	var response jsonData
 	bytes := getJson()
 
+	// Unmarshal the json into the struct
 	err = json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err)
@@ -87,6 +88,7 @@ func handleChromas(c *gin.Context) {
 	var response jsonData
 	bytes := getJson()
 
+	// Unmarshal the json into the struct
 	err := json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err)
