@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -22,37 +21,37 @@ func main() {
 	router := gin.Default()
 
 	// Rifles
-	router.GET("/api/v1/skin/vandal", handleVandal)
-	router.GET("/api/v1/skin/bulldog", handleBulldog)
-	router.GET("/api/v1/skin/phantom", handlePhantom)
-	router.GET("/api/v1/skin/guardian", handleGuardian)
+	router.GET("/api/v1/skin/vandal", func(c *gin.Context) { handleSkins(c, 2) })
+	router.GET("/api/v1/skin/bulldog", func(c *gin.Context) { handleSkins(c, 3) })
+	router.GET("/api/v1/skin/phantom", func(c *gin.Context) { handleSkins(c, 4) })
+	router.GET("/api/v1/skin/guardian", func(c *gin.Context) { handleSkins(c, 13) })
 
 	// LMGs
-	router.GET("/api/v1/skin/odin", handleOdin)
-	router.GET("/api/v1/skin/ares", handleAres)
+	router.GET("/api/v1/skin/odin", func(c *gin.Context) { handleSkins(c, 0) })
+	router.GET("/api/v1/skin/ares", func(c *gin.Context) { handleSkins(c, 1) })
 
 	// SMGs
-	router.GET("/api/v1/skin/spectre", handleSpectre)
-	router.GET("/api/v1/skin/stinger", handleStinger)
+	router.GET("/api/v1/skin/spectre", func(c *gin.Context) { handleSkins(c, 16) })
+	router.GET("/api/v1/skin/stinger", func(c *gin.Context) { handleSkins(c, 17) })
 
 	// Shotguns
-	router.GET("/api/v1/skin/judge", handleJudge)
-	router.GET("/api/v1/skin/bucky", handleBucky)
+	router.GET("/api/v1/skin/judge", func(c *gin.Context) { handleSkins(c, 5) })
+	router.GET("/api/v1/skin/bucky", func(c *gin.Context) { handleSkins(c, 6) })
 
 	// Sidearms
-	router.GET("/api/v1/skin/frenzy", handleFrenzy)
-	router.GET("/api/v1/skin/ghost", handleGhost)
-	router.GET("/api/v1/skin/sheriff", handleSheriff)
-	router.GET("/api/v1/skin/classic", handleClassic)
-	router.GET("/api/v1/skin/shorty", handleShorty)
+	router.GET("/api/v1/skin/classic", func(c *gin.Context) { handleSkins(c, 8) })
+	router.GET("/api/v1/skin/shorty", func(c *gin.Context) { handleSkins(c, 11) })
+	router.GET("/api/v1/skin/frenzy", func(c *gin.Context) { handleSkins(c, 7) })
+	router.GET("/api/v1/skin/ghost", func(c *gin.Context) { handleSkins(c, 9) })
+	router.GET("/api/v1/skin/sheriff", func(c *gin.Context) { handleSkins(c, 10) })
 
 	// Snipers
-	router.GET("/api/v1/skin/operator", handleOP)
-	router.GET("/api/v1/skin/outlaw", handleOutlaw)
-	router.GET("/api/v1/skin/marshal", handleMarshal)
+	router.GET("/api/v1/skin/operator", func(c *gin.Context) { handleSkins(c, 12) })
+	router.GET("/api/v1/skin/outlaw", func(c *gin.Context) { handleSkins(c, 14) })
+	router.GET("/api/v1/skin/marshal", func(c *gin.Context) { handleSkins(c, 15) })
 
 	// Knife
-	router.GET("/api/v1/skin/melee", handleMelee)
+	router.GET("/api/v1/skin/melee", func(c *gin.Context) { handleSkins(c, 18) })
 
 	// Endpoint for all chromas
 	router.GET("api/v1/chromas", handleChromas)
@@ -98,24 +97,6 @@ func getJson() []byte {
 	}
 
 	return bytes
-}
-
-func ginMain(index int) []skinResp {
-	var response jsonData
-	bytes := getJson()
-
-	err := json.Unmarshal(bytes, &response)
-	if err != nil {
-		log.Fatalln(err)
-		return []skinResp{}
-	}
-
-	data, err := generateJson(index, response)
-	if err != nil {
-		panic(err)
-	}
-
-	return data
 }
 
 func generateJson(i int, response jsonData) ([]skinResp, error) {
