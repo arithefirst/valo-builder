@@ -102,7 +102,7 @@
             </div>
             <div>
                 <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
-                <input>
+                <input placeholder="Search..."/>
             </div>
         {/await}
     </div>
@@ -122,6 +122,7 @@
 <style>
     input {
         transform: translate(-50%, 0);
+        border-radius: 7px;
         position: absolute;
         bottom: 0;
         left: 50%;
