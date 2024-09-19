@@ -11,8 +11,8 @@ import (
 	"time"
 )
 
-func writeCache(data []byte) {
-	filename := fmt.Sprintf("cache/%v-skins.json", time.Now().Unix())
+func writeCache(name string, data []byte) {
+	filename := fmt.Sprintf("cache/%v-%v.json", time.Now().Unix(), name)
 	err := os.WriteFile(filename, data, 0777)
 	if err != nil {
 		// If folder is non-existent, re-create the folder, and re-try the file write
@@ -32,14 +32,14 @@ func writeCache(data []byte) {
 				return
 			}
 
-			writeCache(data)
+			writeCache("skins", data)
 		} else {
 			log.Fatal(err)
 		}
 	}
 }
 
-func readCache() ([]byte, error) {
+func readCache(name string) ([]byte, error) {
 	// Read the "cache" dir
 	files, err := os.ReadDir("cache")
 
@@ -60,9 +60,9 @@ func readCache() ([]byte, error) {
 
 	// Dispose of the cache if it has been more than 48H
 	if (timestamp + 172800) < int(time.Now().Unix()) {
-		cmd := exec.Command("rm", "-rf", fmt.Sprintf("cache/%v-skins.json", timestamp))
-		fserr := cmd.Start()
-		if fserr != nil {
+		cmd := exec.Command("rm", "-rf", fmt.Sprintf("cache/%v-%v.json", timestamp, name))
+		err = cmd.Start()
+		if err != nil {
 			return []byte{}, err
 		}
 
@@ -70,7 +70,7 @@ func readCache() ([]byte, error) {
 	}
 
 	// Read the file as a byte array and then return it for the json parser
-	byteArray, err := os.ReadFile(fmt.Sprintf("cache/%v-skins.json", timestamp))
+	byteArray, err := os.ReadFile(fmt.Sprintf("cache/%v-%v.json", timestamp, name))
 	if err != nil {
 		return []byte{}, err
 	}

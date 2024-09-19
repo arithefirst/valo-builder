@@ -67,7 +67,7 @@ func main() {
 
 func getJson() []byte {
 	// Read the cache
-	bytes, err := readCache()
+	bytes, err := readCache("skins")
 
 	// If the file is too old, request new data from the API
 	if err != nil {
@@ -88,7 +88,7 @@ func getJson() []byte {
 
 			bytes = body
 			// Cache and return the new data
-			writeCache(bytes)
+			writeCache("skins", bytes)
 			return bytes
 		} else {
 			log.Fatalln(err)
