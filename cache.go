@@ -52,8 +52,16 @@ func readCache(name string) ([]byte, error) {
 		return []byte{}, err
 	}
 
+	// Find the file by the needed name in the cache
+	var file int
+	for i, f := range files {
+		if strings.Contains(f.Name(), name) {
+			file = i
+		}
+	}
+
 	// Separate the file's timestamp from its name
-	timestamp, err := strconv.Atoi(strings.Split(files[0].Name(), "-")[0])
+	timestamp, err := strconv.Atoi(strings.Split(files[file].Name(), "-")[0])
 	if err != nil {
 		return []byte{}, err
 	}
