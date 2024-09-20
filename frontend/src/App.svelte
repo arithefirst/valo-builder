@@ -51,6 +51,9 @@
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("ares")}} on:click={() => {toggleVis("ares")}}><Item weapon="ares" type="lmg"/></div>
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("odin")}} on:click={() => {toggleVis("odin")}}><Item weapon="odin" type="lmg"/></div>
     </div>
+    <div class="card">
+        <img src="https://media.valorant-api.com/playercards/fcceda12-4815-17d0-ffc1-698aac40777a/largeart.png" alt="#Save widejoy">
+    </div>
 </div>
 
 <footer>RIOT GAMES, VALORANT and any associated logos are trademarks, service marks, and/or registered trademarks of <a href="https://riotgames.com">Riot Games, Inc.</a></footer>
@@ -69,6 +72,18 @@
     a {
         color: inherit;
         text-decoration: underline;
+    }
+
+    .card {
+        position: relative;
+        margin: 2.75330396476vw auto 0;
+        height: 30.160857908vw;
+        cursor: pointer;
+        mask-image: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 40%);
+    }
+
+    .card img {
+        height: 100%;
     }
 
     .weaponsGrid{display: flex;}
