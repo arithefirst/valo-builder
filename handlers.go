@@ -115,16 +115,22 @@ func handleSkins(c *gin.Context, i int) {
 		log.Fatalln(err.Error())
 	}
 
+	// Parse the data to sort alphabetically and to
+	// ensure blank icons will never be given, and that
+	// random favourite skin will never appear
 	data := generateJson(i, response)
 
+	// Return the data
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, data)
 }
 
 func handlePlayerCards(c *gin.Context) {
+	// Get the data from the cache/api
 	var response cardJsonData
 	bytes := getJson("card")
 
+	// Unmarshal the json into the struct
 	err := json.Unmarshal(bytes, &response)
 	if err != nil {
 		log.Fatalln(err.Error())
@@ -135,6 +141,7 @@ func handlePlayerCards(c *gin.Context) {
 		return response.Data[ii].Name < response.Data[j].Name
 	})
 
+	// Return the data
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, response.Data)
 }
