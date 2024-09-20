@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
+
+// Default skins
 export const classic = writable({src: "https://media.valorant-api.com/weaponskinchromas/4b2d5b4f-4955-4208-286c-abadec250cdd/fullrender.png",  uuid: "24aee897-4cdc-b0fd-e596-1ba90fa6d1b2"})
 export const shorty = writable({src: "https://media.valorant-api.com/weaponskinchromas/95608504-4c8b-1408-1612-0f8200421c49/fullrender.png",  uuid: "48ad078a-4dae-2b85-a945-f4b6d1efecbb"})
 export const frenzy = writable({src: "https://media.valorant-api.com/weaponskinchromas/dc99ed5a-4d75-87a0-c921-75963ea3c1e1/fullrender.png",  uuid: "f06657f3-48b6-6314-7235-a9a2749df5b9"})
@@ -18,3 +20,6 @@ export const operator = writable({src: "https://media.valorant-api.com/weaponski
 export const ares = writable({src: "https://media.valorant-api.com/weaponskinchromas/b33de820-4061-8b85-31ce-808f1a2c58f5/fullrender.png",  uuid: "5305d9c4-4f46-fbf4-9e9a-dea772c263b5"})
 export const odin = writable({src: "https://media.valorant-api.com/weaponskinchromas/2f93861d-4b2f-2175-af0c-3ba0c736e257/fullrender.png",  uuid: "f454efd1-49cb-372f-7096-d394df615308"})
 export const melee = writable({src: "https://media.valorant-api.com/weaponskinchromas/cac83e5c-47a1-3519-5420-1db1fdbc4892/fullrender.png",  uuid: "12cc9ed2-4430-d2fe-3064-f7a19b1ba7c7"})
+
+// Default Card
+export const card = writable({src: "https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/largeart.png", name: "VALORANT Card"})
