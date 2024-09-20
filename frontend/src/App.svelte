@@ -63,11 +63,11 @@
     </div>
 </div>
 
-<footer>RIOT GAMES, VALORANT and any associated logos are trademarks, service marks, and/or registered trademarks of <a href="https://riotgames.com">Riot Games, Inc.</a></footer>
+<footer>RIOT GAMES, VALORANT and any associated logos are trademarks, service marks, and/or registered trademarks of <a href="https://riotgames.com/">Riot Games, Inc.</a></footer>
 
 <style>
     footer {
-        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-family: sans-serif;
         position: absolute;
         text-align: center;
         padding-top: 10px;
