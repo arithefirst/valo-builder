@@ -39,7 +39,7 @@ func search(c *gin.Context) {
 	}
 
 	// Get data from the cache/api
-	var response jsonData
+	var response skinJsonData
 	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
@@ -79,7 +79,7 @@ func handleChromas(c *gin.Context) {
 	}
 
 	// Get the data from the cache/api
-	var response jsonData
+	var response skinJsonData
 	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
@@ -106,7 +106,7 @@ func handleChromas(c *gin.Context) {
 
 func handleSkins(c *gin.Context, i int) {
 	// Get the data from the cache/api
-	var response jsonData
+	var response skinJsonData
 	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
@@ -119,4 +119,22 @@ func handleSkins(c *gin.Context, i int) {
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, data)
+}
+
+func handlePlayerCards(c *gin.Context) {
+	var response cardJsonData
+	bytes := getJson("card")
+
+	err := json.Unmarshal(bytes, &response)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	// Sort the slice alphabetically
+	sort.Slice(response.Data, func(ii, j int) bool {
+		return response.Data[ii].Name < response.Data[j].Name
+	})
+
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.JSON(http.StatusOK, response.Data)
 }

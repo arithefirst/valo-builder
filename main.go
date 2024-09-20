@@ -52,10 +52,9 @@ func main() {
 	// Knife
 	router.GET("/api/v1/skin/melee", func(c *gin.Context) { handleSkins(c, 18) })
 
-	// Endpoint for all chromas
+	// Cards, Chromas, and Search endpoints
+	router.GET("/api/v1/cards", handlePlayerCards)
 	router.GET("api/v1/chromas", handleChromas)
-
-	// Search endpoint
 	router.GET("/api/v1/search", search)
 
 	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
@@ -109,7 +108,7 @@ func getJson(t string) []byte {
 	return bytes
 }
 
-func generateJson(i int, response jsonData) []skinResp {
+func generateJson(i int, response skinJsonData) []skinResp {
 
 	// Sort the slice alphabetically
 	sort.Slice(response.Data[i].Skins, func(ii, j int) bool {

@@ -3,7 +3,7 @@ package main
 import "encoding/json"
 
 // UnmarshalJSON Convert the main JSON response into a
-func (j *jsonData) UnmarshalJSON(data []byte) error {
+func (j *skinJsonData) UnmarshalJSON(data []byte) error {
 	aux := &struct {
 		Status int      `json:"status"`
 		Data   []weapon `json:"data"`
