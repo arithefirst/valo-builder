@@ -3,25 +3,33 @@
   import Item from './lib/Item.svelte';
   import Block from "./lib/Block.svelte";
   import {card} from "./lib/stores.js"
+  import CardBlock from "./lib/CardBlock.svelte"
 
   let cardSrc: string;
   let cardAlt: string;
   card.subscribe((val) => {
       cardSrc = val.src
-      cardAlt = val.alt
+      cardAlt = val.name
   })
 
- // Func and vars for creating the <Block />
+ // Func and vars for creating the <Block /> and <CardBlock />
   let visible = false;
+  let cardVisible = false;
   let weapon: string;
   function toggleVis(t: string) {
           visible = !visible
           weapon = t
   }
+  function toggleCardVis() {
+      cardVisible = !cardVisible
+  }
 </script>
 
 {#if visible}
     <Block {weapon} bind:visible={visible}/>
+{/if}
+{#if cardVisible}
+    <CardBlock bind:visible={cardVisible}/>
 {/if}
 
 <div class="weaponsGrid">
@@ -59,7 +67,15 @@
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("odin")}} on:click={() => {toggleVis("odin")}}><Item weapon="odin" type="lmg"/></div>
     </div>
     <div class="card">
-        <img src={cardSrc} alt={cardAlt}>
+        <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
+        <img
+            src={cardSrc}
+            alt={cardAlt}
+            role="button"
+            tabindex=0
+            on:keypress={toggleCardVis}
+            on:click={toggleCardVis}
+        >
     </div>
 </div>
 
