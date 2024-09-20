@@ -40,7 +40,7 @@ func search(c *gin.Context) {
 
 	// Get data from the cache/api
 	var response jsonData
-	bytes := getJson()
+	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
 	err = json.Unmarshal(bytes, &response)
@@ -80,7 +80,7 @@ func handleChromas(c *gin.Context) {
 
 	// Get the data from the cache/api
 	var response jsonData
-	bytes := getJson()
+	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
 	err := json.Unmarshal(bytes, &response)
@@ -107,7 +107,7 @@ func handleChromas(c *gin.Context) {
 func handleSkins(c *gin.Context, i int) {
 	// Get the data from the cache/api
 	var response jsonData
-	bytes := getJson()
+	bytes := getJson("skin")
 
 	// Unmarshal the json into the struct
 	err := json.Unmarshal(bytes, &response)

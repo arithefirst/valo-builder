@@ -65,18 +65,30 @@ func main() {
 	}
 }
 
-func getJson() []byte {
+func getJson(t string) []byte {
 	// Read the cache
-	bytes, err := readCache("skins")
-
+	bytes, err := readCache(t)
 	// If the file is too old, request new data from the API
 	if err != nil {
 		if err.Error() == "cached file unusable: older than 48h" || strings.Contains(err.Error(), "no such file or directory") {
-			fmt.Println(err.Error())
-			fmt.Println("Cache file unusable. Requesting new file from https://valorant-api.com/v1/weapons")
+			// Use a different endpoint depending on
+			// what we want to request
+			var endpoint string
+			switch t {
+			case "skin":
+				endpoint = "weapons/"
+			case "card":
+				endpoint = "playercards/"
+			case "buddy":
+				endpoint = "buddies/"
+			default:
+				log.Fatalf("%v is not a valid item to request.", t)
+			}
+
+			fmt.Println("Cached file unusable or not found. Requesting new file from https://valorant-api.com/v1/" + endpoint)
 
 			// Request new data from the API
-			resp, err := http.Get("https://valorant-api.com/v1/weapons")
+			resp, err := http.Get("https://valorant-api.com/v1/" + endpoint)
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -88,13 +100,12 @@ func getJson() []byte {
 
 			bytes = body
 			// Cache and return the new data
-			writeCache("skins", bytes)
+			writeCache(t, bytes)
 			return bytes
 		} else {
 			log.Fatalln(err)
 		}
 	}
-
 	return bytes
 }
 
