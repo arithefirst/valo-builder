@@ -1,8 +1,15 @@
 <script lang="ts">
 
-  import { get } from 'svelte/store';
   import Item from './lib/Item.svelte';
   import Block from "./lib/Block.svelte";
+  import {card} from "./lib/stores.js"
+
+  let cardSrc: string;
+  let cardAlt: string;
+  card.subscribe((val) => {
+      cardSrc = val.src
+      cardAlt = val.alt
+  })
 
  // Func and vars for creating the <Block />
   let visible = false;
@@ -52,7 +59,7 @@
         <div role="button" tabindex=0 on:keypress={() => {toggleVis("odin")}} on:click={() => {toggleVis("odin")}}><Item weapon="odin" type="lmg"/></div>
     </div>
     <div class="card">
-        <img src="https://media.valorant-api.com/playercards/fcceda12-4815-17d0-ffc1-698aac40777a/largeart.png" alt="#Save widejoy">
+        <img src={cardSrc} alt={cardAlt}>
     </div>
 </div>
 
