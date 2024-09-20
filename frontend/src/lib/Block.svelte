@@ -198,7 +198,7 @@
         z-index: 20;
         position: fixed;
         content: '';
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
         width: 100vw;
         height: 100vh;
         top: 0;
