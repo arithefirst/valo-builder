@@ -58,6 +58,7 @@
 <style>
     footer {
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        position: absolute;
         text-align: center;
         padding-top: 10px;
         color: white;
