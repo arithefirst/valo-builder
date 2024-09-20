@@ -195,6 +195,7 @@
     }
 
     .blur {
+        z-index: 20;
         position: fixed;
         content: '';
         backdrop-filter: blur(10px);
