@@ -88,16 +88,18 @@
 
 <div class="blur"/>
 <div class="skins-selector">
-    <svg xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 512 512"
+    <svg xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24"
          on:click={toggleVis}
          on:keypress={toggleVis}
          role="button"
          tabindex=0>
-        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512z
-        M175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47
-        c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47
-        47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" fill="#6c7086"/>
+         <!-- Close Icon -->
+         <path fill="#6c7086" d="
+         M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59
+         L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12
+         L5.7 16.89a.996.996 0 1 0 1.41 1.41
+         L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41
+         L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4"/>
     </svg>
     <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
     <div class="levels-img-chroma">
