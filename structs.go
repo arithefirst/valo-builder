@@ -1,5 +1,8 @@
 package main
 
+// Items
+// -------------------------------------
+
 // Chromas struct
 type chroma struct {
 	Swatch string `json:"swatch"`
@@ -15,17 +18,21 @@ type skin struct {
 	Chromas []chroma `json:"chromas"`
 }
 
+// Cards struct
+type card struct {
+	UUID string `json:"uuid"`
+	Name string `json:"displayName"`
+	Icon string `json:"largeArt"`
+}
+
 // Weapon struct
 type weapon struct {
 	Name  string `json:"displayName"`
 	Skins []skin `json:"skins"`
 }
 
-type jsonData struct {
-	Status int      `json:"status"`
-	Data   []weapon `json:"data"`
-}
-
+// Responses
+// -------------------------------------
 type skinResp struct {
 	Name string `json:"displayName"`
 	Icon string `json:"fullRender"`
@@ -35,4 +42,19 @@ type skinResp struct {
 type errResp struct {
 	Error  string `json:"error"`
 	Status int    `json:"status"`
+}
+
+// Json outputs
+// -------------------------------------
+
+// Json output for skins
+type skinJsonData struct {
+	Status int      `json:"status"`
+	Data   []weapon `json:"data"`
+}
+
+// Json output for cards
+type cardJsonData struct {
+	Status int    `json:"status"`
+	Data   []card `json:"data"`
 }
