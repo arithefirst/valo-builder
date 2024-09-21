@@ -1,15 +1,6 @@
 <script lang="ts">
     import Card from './Card.svelte'
-    import {card} from './stores.js'
     export let visible: boolean;
-
-    // Subscribe to the store for the current weapon
-    let alt: string
-
-    card.subscribe((val) => {
-        alt = val.name
-    })
-
 
     let resp = fetchData();
     let query: string;
@@ -38,7 +29,7 @@
 </script>
 
 <div class="blur"/>
-<div class="skins-selector">
+<div class="cards-selector">
     <svg xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24"
          on:click={toggleVis}
          on:keypress={toggleVis}
@@ -53,7 +44,6 @@
          L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4"/>
     </svg>
     <h2>Cards</h2>
-    <div class="levels-img-chroma"></div>
     <hr>
     <div class="scrollable">
         <div class="grid">
@@ -88,7 +78,7 @@
         left: 0;
     }
 
-    .skins-selector {
+    .cards-selector {
         border: 3px solid #6c7086;
         background-color: #1e1e2e;
         border-radius: 15px;
@@ -115,11 +105,6 @@
         width: 4%;
         cursor: pointer;
         overflow: hidden;
-    }
-
-    .levels-img-chroma {
-        position: relative;
-        height: 200px;
     }
 
     hr {
