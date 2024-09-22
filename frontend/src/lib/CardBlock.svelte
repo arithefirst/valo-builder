@@ -44,6 +44,13 @@
          L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4"/>
     </svg>
     <h2>Cards</h2>
+    <div class="search">
+        <input
+                placeholder="Search..."
+                bind:value={query}
+                on:input={search}
+        />
+    </div>
     <hr>
     <div class="scrollable">
         <div class="grid">
@@ -112,6 +119,19 @@
         height: 2px;
         border-color: #6c7086;
         background-color: #6c7086;
+    }
+
+    input {
+        position: absolute;
+        transform: translate(-50%, 0);
+        border-radius: 7px;
+        bottom: 0;
+        left: 50%;
+    }
+
+    .search {
+        position: relative;
+        height: 10px;
     }
 
 </style>
