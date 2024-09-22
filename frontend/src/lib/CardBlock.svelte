@@ -28,7 +28,7 @@
 
 </script>
 
-<div class="blur"/>
+<div class="blur" on:click={toggleVis} on:keypress={toggleVis} role="button" tabindex=0 />
 <div class="cards-selector">
     <svg xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24"
          on:click={toggleVis}
