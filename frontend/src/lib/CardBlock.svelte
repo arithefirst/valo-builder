@@ -93,7 +93,7 @@
     }
 
     .scrollable {
-        height: calc(100% - 300px);
+        height: 100%;
         position: absolute;
         overflow-y: scroll;
     }
