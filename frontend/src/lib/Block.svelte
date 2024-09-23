@@ -86,6 +86,11 @@
 
 </script>
 
+<div id="active-skin-cover"></div>
+<div class="mode-selector">
+    <div class="skins active" id="skins-button">S</div>
+    <div class="buddies" id="buddies-button">B</div>
+</div>
 <div class="blur" on:click={toggleVis} on:keypress={toggleVis} role="button" tabindex=0 />
 <div class="skins-selector">
     <svg xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24"
@@ -199,7 +204,7 @@
     }
 
     .blur {
-        z-index: 20;
+        z-index: 1;
         position: fixed;
         content: '';
         backdrop-filter: blur(15px);
@@ -216,7 +221,7 @@
         width: 818px;
         height: calc(100vh - 26px);
         text-align: center;
-        z-index: 1000;
+        z-index: 3;
         position: absolute;
         margin: 10px 50% 10px;
         translate: -50%;
@@ -256,6 +261,44 @@
         height: 2px;
         border-color: #6c7086;
         background-color: #6c7086;
+    }
+
+    .mode-selector {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 30px;
+        left: calc(50% + 399px);
+
+    }
+
+    .skins, .buddies{
+        cursor: pointer;
+        border-radius: 5px;
+        padding-left: 10px;
+        margin-bottom: 7px;
+        line-height: 45px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        background-color: #181825;
+        border: 3px solid #6c7086;
+        height: 45px;
+        width: 30px;
+    }
+
+    #active-skin-cover {
+        width: 3px;
+        position: absolute;
+        height: 44px;
+        background-color: #1e1e2e;
+        left: calc(50% + 409px);
+        top: 33px;
+        z-index: 4;
+    }
+
+    .active {
+        background-color: #1e1e2e;
     }
 
 </style>
