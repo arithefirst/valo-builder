@@ -163,6 +163,10 @@
         position: absolute;
         bottom: 0;
         left: 50%;
+        /* Colors */
+        background-color: #1e1e2e;
+        color: #cdd6f4;
+        border-color: #6c7086;
     }
 
     .grid {
