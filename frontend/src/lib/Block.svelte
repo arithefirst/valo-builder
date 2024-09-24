@@ -88,8 +88,24 @@
 
 <div id="active-skin-cover"></div>
 <div class="mode-selector">
-    <div class="skins active" id="skins-button">S</div>
-    <div class="buddies" id="buddies-button">B</div>
+    <div class="skins active" id="skins-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="#e2e2e4" d="M7 5h16v4h-1v1h-6a1 1 0 0 0-1 1v1
+            a2 2 0 0 1-2 2H9.62c-.38 0-.73.22-.9.56l-2.45 4.89c-.17.34-.51.55-.89.55
+            H2s-3 0 1-6c0 0 3-4-1-4V5h1l.5-1h3zm7 7v-1a1 1 0 0 0-1-1h-1s-1 1 0 2
+            a2 2 0 0 1-2-2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1"/>
+        </svg>
+    </div>
+    <div class="buddies" id="buddies-button">
+        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.5 122.88"><defs>
+            <style>.cls-1{fill-rule:evenodd;}</style></defs><title>keychain</title><path fill="#e2e2e4" class="cls-1" d="M9,9A30.63,30.63,0,0,1,30.7,0h
+            0A30.73,30.73,0,0,1,59.05,42.52l4.37,4.37,1-1a10.06,10.06,0,0,1,14.21,0l41,41a10.09,10.09,0,0,1,0,14.22l-18.84,18.84a10,10,0,0,1-7.11,2.93h
+            0a10,10,0,0,1-7.11-2.94l-41-41a10.09,10.09,0,0,1,0-14.22l1-1L42,59.26A30.71,30.71,0,0,1,9,9ZM67.1,50.58,72,55.47a1.71,1.71,0,0,1,0,2.39L57.48,72.38
+            a1.7,1.7,0,0,1-2.38,0l-4.9-4.9-1,1a4.88,4.88,0,0,0,0,6.84l41,41a4.82,4.82,0,0,0,3.42,1.4h0A4.86,4.86,0,0,0,97,116.26l18.84-18.85
+            a4.85,4.85,0,0,0,0-6.84l-41-41a4.85,4.85,0,0,0-6.84,0l-1,1ZM37.88,55.16l-3.35-3.35a1.68,1.68,0,0,1,0-2.38L49.05,34.91a1.68,1.68,0,0,1,2.38,0
+            L55,38.46a25.66,25.66,0,0,0,1.21-7.76A25.5,25.5,0,0,0,30.7,5.21h0a25.49,25.49,0,0,0,0,51,25.75,25.75,0,0,0,7.18-1Zm16.63-.27
+            a4.34,4.34,0,1,1,0,6.14,4.33,4.33,0,0,1,0-6.14Z"/></svg>
+    </div>
 </div>
 <div class="blur" on:click={toggleVis} on:keypress={toggleVis} role="button" tabindex=0 />
 <div class="skins-selector">
@@ -287,6 +303,14 @@
         width: 30px;
     }
 
+    svg {
+        display: flex;
+        transform: translate(2px, 10px);
+        justify-self: center;
+        align-self: center;
+        width: 80%;
+    }
+
     #active-skin-cover {
         width: 3px;
         position: absolute;
@@ -300,5 +324,4 @@
     .active {
         background-color: #1e1e2e;
     }
-
 </style>
