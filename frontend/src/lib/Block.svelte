@@ -87,6 +87,7 @@
 </script>
 
 <div id="active-skin-cover"></div>
+<div id="active-buddy-cover"></div>
 <div class="mode-selector">
     <div class="skins active" id="skins-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -318,6 +319,16 @@
         background-color: #1e1e2e;
         left: calc(50% + 409px);
         top: 33px;
+        z-index: 4;
+    }
+
+    #active-buddy-cover {
+        width: 3px;
+        position: absolute;
+        height: 44px;
+        background-color: #1e1e2e;
+        left: calc(50% + 409px);
+        top: 89.5px;
         z-index: 4;
     }
 
