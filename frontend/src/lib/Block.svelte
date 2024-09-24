@@ -1,5 +1,6 @@
 <script lang="ts">
     import Skin from './Skin.svelte'
+    import Buddy from './Buddy.svelte'
     export let weapon: string;
     export let visible: boolean;
 
@@ -75,6 +76,11 @@
             const response = await fetch(`http://127.0.0.1:8080/api/v1/search?q=${query}&weapon=${indices[weapon]}`)
             resp = await response.json()
         }
+    }
+
+    async function fetchBuddies() {
+        const response = await fetch("http://127.0.0.1:8080/api/v1/buddy");
+        return await response.json();
     }
 
     async function fetchData() {
@@ -169,10 +175,10 @@
                 <div>
                     <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
                     <input
-                            id="search"
-                            placeholder="Search..."
-                            bind:value={query}
-                            on:input={search}
+                        id="search"
+                        placeholder="Search..."
+                        bind:value={query}
+                        on:input={search}
                     />
                 </div>
             {/await}
@@ -190,6 +196,38 @@
                 {/await}
             </div>
         </div>
+        <!-- Skin mode only styles -->
+        <style>
+            #active-buddy-cover {
+                visibility: hidden;
+            }
+        </style>
+    {/if}
+    {#if buddyMode}
+        <h2>Buddies</h2>
+        <div class="search">
+            <input
+                placeholder="Search..."
+                bind:value={query}
+                on:input={search}
+            />
+        </div>
+        <hr>
+        <div class="buddy-scrollable">
+            <div class="buddy-grid">
+                {#await fetchBuddies() then data}
+                    {#each data as buddy, i}
+                        <Buddy src={buddy.displayIcon} title={buddy.displayName} {weapon} {i} />
+                    {/each}
+                {/await}
+            </div>
+        </div>
+        <!-- Buddy mode only styles -->
+        <style>
+            #active-skin-cover {
+                visibility: hidden;
+            }
+        </style>
     {/if}
 </div>
 
@@ -209,6 +247,12 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        padding-left: 5px;
+    }
+
+    .buddy-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
         padding-left: 5px;
     }
 
@@ -266,6 +310,12 @@
         overflow-y: scroll;
     }
 
+    .buddy-scrollable {
+        height: calc(100% - 100px);
+        position: absolute;
+        overflow-y: scroll;
+    }
+
     .close {
         position: fixed;
         right: 10px;
@@ -278,6 +328,11 @@
     .levels-img-chroma {
         position: relative;
         height: 200px;
+    }
+
+    .search {
+        position: relative;
+        height: 10px;
     }
 
     #weapon {
@@ -344,7 +399,7 @@
         height: 44px;
         background-color: #1e1e2e;
         left: calc(50% + 409px);
-        top: 89.5px;
+        top: 91px;
         z-index: 4;
     }
 
@@ -352,18 +407,3 @@
         background-color: #1e1e2e !important;
     }
 </style>
-
-{#if !buddyMode}
-    <style>
-        #active-buddy-cover {
-            visibility: hidden;
-        }
-    </style>
-{/if}
-{#if buddyMode}
-    <style>
-        #active-skin-cover {
-            visibility: hidden;
-        }
-    </style>
-{/if}
