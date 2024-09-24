@@ -102,7 +102,7 @@
 <div id="active-skin-cover"></div>
 <div id="active-buddy-cover"></div>
 <div class="mode-selector">
-    <div class="active" id="skins-button">
+    <div class="active" id="skins-button" on:click={() => {modeSwitcher(false)}} on:keypress={() => {modeSwitcher(false)}} role="button" tabindex=0>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="#e2e2e4" d="M7 5h16v4h-1v1h-6a1 1 0 0 0-1 1v1
             a2 2 0 0 1-2 2H9.62c-.38 0-.73.22-.9.56l-2.45 4.89c-.17.34-.51.55-.89.55
@@ -110,7 +110,7 @@
             a2 2 0 0 1-2-2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1"/>
         </svg>
     </div>
-    <div id="buddies-button">
+    <div id="buddies-button" on:click={() => {modeSwitcher(true)}} on:keypress={() => {modeSwitcher(true)}} role="button" tabindex=0>
         <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.5 122.88"><defs>
             <style>.cls-1{fill-rule:evenodd;}</style></defs><title>keychain</title><path fill="#e2e2e4" class="cls-1" d="M9,9A30.63,30.63,0,0,1,30.7,0h
             0A30.73,30.73,0,0,1,59.05,42.52l4.37,4.37,1-1a10.06,10.06,0,0,1,14.21,0l41,41a10.09,10.09,0,0,1,0,14.22l-18.84,18.84a10,10,0,0,1-7.11,2.93h
@@ -136,59 +136,61 @@
          L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41
          L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4"/>
     </svg>
-    <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
-    <div class="levels-img-chroma">
-        {#await chromaResponse then chromaData}
-            <div class="chromas">
-                {#each chromaData.chromas as chroma, i}
-                    <!-- svelte-ignore a11y-invalid-attribute permalink -->
-                    <a
-                            href="#"
-                            role="button"
-                            tabindex={i}
-                            on:click={() => {
+    {#if !buddyMode}
+        <h2>{weapon.charAt(0).toUpperCase() + weapon.slice(1)}</h2>
+        <div class="levels-img-chroma">
+            {#await chromaResponse then chromaData}
+                <div class="chromas">
+                    {#each chromaData.chromas as chroma, i}
+                        <!-- svelte-ignore a11y-invalid-attribute permalink -->
+                        <a
+                                href="#"
+                                role="button"
+                                tabindex={i}
+                                on:click={() => {
                             chromaIndex = i
                             weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
                         }}
-                            on:keypress={() => {
+                                on:keypress={() => {
                             chromaIndex = i
                             weapons[weapon].set( {src: chromaData.chromas[chromaIndex].fullRender, uuid: uuid} )
                         }}
-                    >
-                        <img
-                                class="swatch"
-                                id="swatch-{i}"
-                                src={chroma.swatch}
-                                alt={chroma.displayName}
-                                style="{hideSwatch(chromaData.chromas)}"
-                        />
-                    </a>
-                {/each}
-            </div>
-            <div>
-                <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
-                <input
-                    id="search"
-                    placeholder="Search..."
-                    bind:value={query}
-                    on:input={search}
-                />
-            </div>
-        {/await}
-    </div>
-    <hr>
-    <div class="scrollable">
-        <div class="grid">
-            {#await resp then data}
-                {#if data !== null}
-                    {#each data as skin, i}
-                        <!-- Skin component requires i var for tabindex -->
-                        <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
+                        >
+                            <img
+                                    class="swatch"
+                                    id="swatch-{i}"
+                                    src={chroma.swatch}
+                                    alt={chroma.displayName}
+                                    style="{hideSwatch(chromaData.chromas)}"
+                            />
+                        </a>
                     {/each}
-                {/if}
+                </div>
+                <div>
+                    <img id="weapon" src={href} alt={chromaData.chromas[chromaIndex].displayName}/>
+                    <input
+                            id="search"
+                            placeholder="Search..."
+                            bind:value={query}
+                            on:input={search}
+                    />
+                </div>
             {/await}
         </div>
-    </div>
+        <hr>
+        <div class="scrollable">
+            <div class="grid">
+                {#await resp then data}
+                    {#if data !== null}
+                        {#each data as skin, i}
+                            <!-- Skin component requires i var for tabindex -->
+                            <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
+                        {/each}
+                    {/if}
+                {/await}
+            </div>
+        </div>
+    {/if}
 </div>
 
 <style>
