@@ -13,11 +13,10 @@
 </script>
 
 <div
-        class="skinCon"
-        on:click={load}
-        on:keyup={load}
-        role="button"
-        tabindex={i}
+    on:click={load}
+    on:keyup={load}
+    role="button"
+    tabindex={i}
 >
     <p><strong>{alt}</strong></p>
     <img {src} {alt}>
