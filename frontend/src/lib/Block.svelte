@@ -3,6 +3,19 @@
     export let weapon: string;
     export let visible: boolean;
 
+    let buddyMode: boolean = false;
+    function modeSwitcher(mode: boolean) {
+        buddyMode = mode;
+        const buddy = document.getElementById("buddies-button");
+        const skin = document.getElementById("skins-button");
+        if (buddyMode) {
+            buddy.classList.add("active")
+            skin.classList.remove("active");
+        } else {
+            skin.classList.add("active")
+            buddy.classList.remove("active");
+        }
+    }
 
     // Function to hide the swatches if there is only 1
     function hideSwatch(json: object) {
@@ -89,7 +102,7 @@
 <div id="active-skin-cover"></div>
 <div id="active-buddy-cover"></div>
 <div class="mode-selector">
-    <div class="skins active" id="skins-button">
+    <div class="active" id="skins-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="#e2e2e4" d="M7 5h16v4h-1v1h-6a1 1 0 0 0-1 1v1
             a2 2 0 0 1-2 2H9.62c-.38 0-.73.22-.9.56l-2.45 4.89c-.17.34-.51.55-.89.55
@@ -97,7 +110,7 @@
             a2 2 0 0 1-2-2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1"/>
         </svg>
     </div>
-    <div class="buddies" id="buddies-button">
+    <div id="buddies-button">
         <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.5 122.88"><defs>
             <style>.cls-1{fill-rule:evenodd;}</style></defs><title>keychain</title><path fill="#e2e2e4" class="cls-1" d="M9,9A30.63,30.63,0,0,1,30.7,0h
             0A30.73,30.73,0,0,1,59.05,42.52l4.37,4.37,1-1a10.06,10.06,0,0,1,14.21,0l41,41a10.09,10.09,0,0,1,0,14.22l-18.84,18.84a10,10,0,0,1-7.11,2.93h
@@ -289,7 +302,8 @@
 
     }
 
-    .skins, .buddies{
+    #skins-button,
+    #buddies-button {
         cursor: pointer;
         border-radius: 5px;
         padding-left: 10px;
@@ -333,6 +347,21 @@
     }
 
     .active {
-        background-color: #1e1e2e;
+        background-color: #1e1e2e !important;
     }
 </style>
+
+{#if !buddyMode}
+    <style>
+        #active-buddy-cover {
+            visibility: hidden;
+        }
+    </style>
+{/if}
+{#if buddyMode}
+    <style>
+        #active-skin-cover {
+            visibility: hidden;
+        }
+    </style>
+{/if}
