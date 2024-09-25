@@ -19,7 +19,7 @@ export const outlaw = writable({src: "https://media.valorant-api.com/weaponskinc
 export const operator = writable({src: "https://media.valorant-api.com/weaponskinchromas/4914f50d-49f9-6424-ca80-9486c45a138d/fullrender.png",  uuid: "d1f2920f-469a-3431-ad96-96afbd0017f2", buddy: ""})
 export const ares = writable({src: "https://media.valorant-api.com/weaponskinchromas/b33de820-4061-8b85-31ce-808f1a2c58f5/fullrender.png",  uuid: "5305d9c4-4f46-fbf4-9e9a-dea772c263b5", buddy: ""})
 export const odin = writable({src: "https://media.valorant-api.com/weaponskinchromas/2f93861d-4b2f-2175-af0c-3ba0c736e257/fullrender.png",  uuid: "f454efd1-49cb-372f-7096-d394df615308", buddy: ""})
-export const melee = writable({src: "https://media.valorant-api.com/weaponskinchromas/cac83e5c-47a1-3519-5420-1db1fdbc4892/fullrender.png",  uuid: "12cc9ed2-4430-d2fe-3064-f7a19b1ba7c7", buddy: ""})
+export const melee = writable({src: "https://media.valorant-api.com/weaponskinchromas/cac83e5c-47a1-3519-5420-1db1fdbc4892/fullrender.png",  uuid: "12cc9ed2-4430-d2fe-3064-f7a19b1ba7c7"})
 
 // Default Card
 export const card = writable({src: "https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/largeart.png", name: "VALORANT Card"})

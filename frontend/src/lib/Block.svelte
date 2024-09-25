@@ -231,6 +231,16 @@
     {/if}
 </div>
 
+{#if weapon === "melee"}
+    <style>
+        #active-skin-cover,
+        #active-buddy-cover,
+        .mode-selector {
+            visibility: hidden;
+        }
+    </style>
+{/if}
+
 <style>
     input {
         transform: translate(-50%, 0);
