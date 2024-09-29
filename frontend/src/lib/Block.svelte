@@ -62,9 +62,23 @@
         uuid = val.uuid
     })
 
-
+    let buddies = fetchBuddies();
     let resp = fetchData();
+    let buddyQuery: string;
     let query: string;
+
+    // Function for handling searches for buddies
+    async function buddySearch() {
+        if (buddyQuery === "") {
+            // If the query is empty, give the default data instead
+            console.log("Search empty. Re-setting to default.")
+            buddies = fetchBuddies();
+        } else {
+            const response = await fetch(`http://127.0.0.1:8080/api/v1/search?q=${buddyQuery}&weapon=20`)
+            buddies = await response.json()
+            console.log(buddies)
+        }
+    }
 
     // Function for handling searches
     async function search() {
@@ -208,17 +222,19 @@
         <div class="search">
             <input
                 placeholder="Search..."
-                bind:value={query}
-                on:input={search}
+                bind:value={buddyQuery}
+                on:input={buddySearch}
             />
         </div>
         <hr>
         <div class="buddy-scrollable">
             <div class="buddy-grid">
-                {#await fetchBuddies() then data}
-                    {#each data as buddy, i}
-                        <Buddy src={buddy.displayIcon} title={buddy.displayName} {weapon} {i} />
-                    {/each}
+                {#await buddies then data}
+                    {#if data !== null}
+                        {#each data as buddy, i}
+                            <Buddy src={buddy.displayIcon} title={buddy.displayName} {weapon} {i} />
+                        {/each}
+                    {/if}
                 {/await}
             </div>
         </div>
