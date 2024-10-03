@@ -1,7 +1,8 @@
-<script lang="js">
-    export let weapon
-    export let type
-    let href
+<script lang="ts">
+    export let weapon: string;
+    export let type: string;
+    let href: string;
+    let buddySrc: string;
 
     // Import stores from stores.js
     import { classic, shorty, frenzy, ghost,
@@ -21,12 +22,16 @@
 
     weapons[weapon].subscribe((val) => {
         href = val.src
+        if (weapon !== "melee") {
+            buddySrc = val.buddy
+        }
     })
 </script>
 
 <div id={weapon}>
     {#if type === "pistol" || type === "smg" }
         <svg width="16.519823788vw" viewBox="0 0 263 109" xmlns="http://www.w3.org/2000/svg">
+            <image href={buddySrc} x="-9.75%" y="40%" height="40%" width="40%"/>
             <rect width="263" height="109" fill="#FFFFFF1E" />
             <path d="M0,0 L0,109 L263,109 L263,0 M1,1 L1,108 L262,108 L262,1" fill="#FFFFFF32" fill-rule="evenodd"/>
             <path d="M1,1 L1,28 L28,1" fill="#FFFFFF28"/>
@@ -37,6 +42,7 @@
     {/if}
     {#if type === "shotgun" || type === "rifle" || type === "sniper" || type === "lmg"}
         <svg width="16.519823788vw" viewBox="0 0 263 109" xmlns="http://www.w3.org/2000/svg">
+            <image href={buddySrc} x="-9.75%" y="40%" height="40%" width="40%"/>
             <rect width="263" height="109" fill="#FFFFFF1E" />
             <path d="M0,0 L0,109 L263,109 L263,0 M1,1 L1,108 L262,108 L262,1" fill="#FFFFFF32" fill-rule="evenodd"/>
             <path d="M1,1 L1,28 L28,1" fill="#FFFFFF28"/>
