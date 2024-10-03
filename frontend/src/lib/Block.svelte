@@ -57,9 +57,11 @@
     // Subscribe to the store for the current weapon
     let href: string
     let uuid: string
+    let buddy: string
     weapons[weapon].subscribe((val) => {
         href = val.src
         uuid = val.uuid
+        buddy = val.buddy
     })
 
     let buddies = fetchBuddies();
@@ -219,6 +221,9 @@
     {/if}
     {#if buddyMode}
         <h2>Buddies</h2>
+        {#if (buddy !== "")}
+            <img src={buddy} alt="Currently equipped buddy" style="height: 20%; margin-bottom: 30px;"/>
+        {/if}
         <div class="search">
             <input
                 placeholder="Search..."
@@ -337,7 +342,7 @@
     }
 
     .buddy-scrollable {
-        height: calc(100% - 100px);
+        height: calc(100% - 140px);
         position: absolute;
         overflow-y: scroll;
     }

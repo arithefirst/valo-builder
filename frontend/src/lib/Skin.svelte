@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     export let src;
     export let title;
     export let chromaIndex
@@ -22,11 +22,12 @@
         "ares": ares, "odin": odin, "melee": melee, "outlaw": outlaw
     }
 
-
     function load() {
         // Lookup the currently set weapon in the weapons table;
         // Then set that weapon's store's value to that of src
-        weapons[weapon].set( {src: src, uuid: uuid} )
+        let buddy: string;
+        weapons[weapon].subscribe((val) => {buddy = val.buddy})
+        weapons[weapon].set( {src: src, uuid: uuid, buddy: buddy} )
         chromaIndex = 0
         refreshFunc()
     }
