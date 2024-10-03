@@ -202,9 +202,9 @@
             <div class="grid">
                 {#await resp then data}
                     {#if data !== null}
-                        {#each data as skin, i}
+                        {#each data as skin}
                             <!-- Skin component requires i var for tabindex -->
-                            <Skin {i} {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
+                            <Skin {weapon} src={skin.fullRender} title={skin.displayName} uuid={skin.uuid} bind:chromaIndex={chromaIndex} refreshFunc={refetchChroma}></Skin>
                         {/each}
                     {/if}
                 {/await}
@@ -231,8 +231,8 @@
             <div class="buddy-grid">
                 {#await buddies then data}
                     {#if data !== null}
-                        {#each data as buddy, i}
-                            <Buddy src={buddy.displayIcon} title={buddy.displayName} {weapon} {i} />
+                        {#each data as buddy}
+                            <Buddy src={buddy.displayIcon} title={buddy.displayName} {weapon} />
                         {/each}
                     {/if}
                 {/await}

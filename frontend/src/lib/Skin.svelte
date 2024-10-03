@@ -5,7 +5,6 @@
     export let refreshFunc;
     export let weapon;
     export let uuid;
-    export let i;
 
     // Import stores from stores.js
     import { classic, shorty, frenzy, ghost,
@@ -38,7 +37,7 @@
     on:click={load}
     on:keyup={load}
     role="button"
-    tabindex={i}
+    tabindex={0}
 >
     <p><strong>{title}</strong></p>
     <img {src} alt="{title}">
