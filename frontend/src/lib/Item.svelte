@@ -28,10 +28,12 @@
     })
 </script>
 
-<div id={weapon}>
+<div id={weapon} style="position: relative">
     {#if type === "pistol" || type === "smg" }
+        {#if buddySrc !== ""}
+            <img src={buddySrc} alt="Buddy">
+        {/if}
         <svg width="16.519823788vw" viewBox="0 0 263 109" xmlns="http://www.w3.org/2000/svg">
-            <image href={buddySrc} x="-30%" y="30%" height="20%" width="20%"/>
             <rect width="263" height="109" fill="#FFFFFF1E" />
             <path d="M0,0 L0,109 L263,109 L263,0 M1,1 L1,108 L262,108 L262,1" fill="#FFFFFF32" fill-rule="evenodd"/>
             <path d="M1,1 L1,28 L28,1" fill="#FFFFFF28"/>
@@ -41,8 +43,10 @@
         </svg>
     {/if}
     {#if type === "shotgun" || type === "rifle" || type === "sniper" || type === "lmg"}
+        {#if buddySrc !== ""}
+            <img src={buddySrc} alt="Buddy">
+        {/if}
         <svg width="16.519823788vw" viewBox="0 0 263 109" xmlns="http://www.w3.org/2000/svg">
-            <image href={buddySrc} x="-9.75%" y="40%" height="40%" width="40%"/>
             <rect width="263" height="109" fill="#FFFFFF1E" />
             <path d="M0,0 L0,109 L263,109 L263,0 M1,1 L1,108 L262,108 L262,1" fill="#FFFFFF32" fill-rule="evenodd"/>
             <path d="M1,1 L1,28 L28,1" fill="#FFFFFF28"/>
@@ -68,5 +72,14 @@
         margin-bottom: 0.82599118942vw;
         font-family: monospace;
         cursor: pointer;
+    }
+
+    img {
+        position: absolute;
+        height: 30%;
+        bottom: 0;
+        left: 3px;
+        aspect-ratio: 1;
+        transform: translateY(-37px);
     }
 </style>
