@@ -224,3 +224,7 @@ func handleBuddies(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, response.Data)
 }
+
+func handleTitles(c *gin.Context) {
+	//	Logic Here
+}

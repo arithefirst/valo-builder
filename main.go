@@ -56,6 +56,7 @@ func main() {
 	router.GET("/api/v1/buddy", handleBuddies)
 	router.GET("/api/v1/cards", handlePlayerCards)
 	router.GET("api/v1/chromas", handleChromas)
+	router.GET("api/v1/titles", handleTitles)
 	router.GET("/api/v1/search", search)
 
 	fmt.Printf("Starting server at 0.0.0.0:%d\n", port)
@@ -81,6 +82,8 @@ func getJson(t string) []byte {
 				endpoint = "playercards/"
 			case "buddy":
 				endpoint = "buddies/"
+			case "title":
+				endpoint = "playertitles/"
 			default:
 				log.Fatalf("%v is not a valid item to request.", t)
 			}
