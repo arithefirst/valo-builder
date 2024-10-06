@@ -32,8 +32,8 @@ func search(c *gin.Context) {
 		return
 	}
 
-	// If weaponInt > 20 or < 0, return an error
-	if weaponInt > 20 || weaponInt < 0 {
+	// If weaponInt > 21 or < 0, return an error
+	if weaponInt > 21 || weaponInt < 0 {
 		c.JSON(http.StatusNotFound, errResp{Error: "Weapon must be >= 0 && <= 19", Status: http.StatusNotFound})
 		return
 	}
@@ -84,7 +84,7 @@ func search(c *gin.Context) {
 			return response.Data[ii].Name < response.Data[j].Name
 		})
 
-		// Create cards array
+		// Create buddies array
 		var buddies []buddy
 		for i := 0; i != len(response.Data); i++ {
 			// If lowercase weapon name contains lowercase query, add to skins arr
@@ -93,6 +93,35 @@ func search(c *gin.Context) {
 			}
 		}
 		c.JSON(http.StatusOK, buddies)
+		return
+	}
+
+	// If weaponInt is 21, search for titles instead of skins
+	if weaponInt == 21 {
+		// Get the data from the cache/api
+		var response titleJsonData
+		bytes := getJson("title")
+
+		// Unmarshal the json into the struct
+		err := json.Unmarshal(bytes, &response)
+		if err != nil {
+			log.Fatalln(err.Error())
+		}
+
+		// Sort the slice alphabetically
+		sort.Slice(response.Data, func(ii, j int) bool {
+			return response.Data[ii].Content < response.Data[j].Content
+		})
+
+		// Create titles array
+		var titles []title
+		for i := 0; i != len(response.Data); i++ {
+			// If lowercase weapon name contains lowercase query, add to skins arr
+			if strings.Contains(strings.ToLower(response.Data[i].Content), strings.ToLower(query)) {
+				titles = append(titles, response.Data[i])
+			}
+		}
+		c.JSON(http.StatusOK, titles)
 		return
 	}
 
