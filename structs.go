@@ -25,6 +25,12 @@ type card struct {
 	Icon string `json:"largeArt"`
 }
 
+// Titles struct
+type title struct {
+	Content string `json:"titleText"`
+	UUID    string `json:"uuid"`
+}
+
 // Buddies struct
 type buddy struct {
 	UUID string `json:"uuid"`
@@ -64,6 +70,12 @@ type skinJsonData struct {
 type cardJsonData struct {
 	Status int    `json:"status"`
 	Data   []card `json:"data"`
+}
+
+// Json output for titles
+type titleJsonData struct {
+	Status int     `json:"status"`
+	Data   []title `json:"data"`
 }
 
 // Json output for buddies
