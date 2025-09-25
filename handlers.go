@@ -174,3 +174,24 @@ func handlePlayerCards(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, response.Data)
 }
+
+func handleBuddies(c *gin.Context) {
+	// Get the data from the cache/api
+	var response buddyJsonData
+	bytes := getJson("buddy")
+
+	// Unmarshal the json into the struct
+	err := json.Unmarshal(bytes, &response)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	// Sort the slice alphabetically
+	sort.Slice(response.Data, func(ii, j int) bool {
+		return response.Data[ii].Name < response.Data[j].Name
+	})
+
+	// Return the data
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.JSON(http.StatusOK, response.Data)
+}

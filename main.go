@@ -53,6 +53,7 @@ func main() {
 	router.GET("/api/v1/skin/melee", func(c *gin.Context) { handleSkins(c, 18) })
 
 	// Cards, Chromas, and Search endpoints
+	router.GET("/api/v1/buddy", handleBuddies)
 	router.GET("/api/v1/cards", handlePlayerCards)
 	router.GET("api/v1/chromas", handleChromas)
 	router.GET("/api/v1/search", search)
